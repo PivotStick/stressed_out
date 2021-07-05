@@ -10,15 +10,11 @@ namespace Ladder
 		public Floor[] floors;
 		private int CurrentFloor { get => Player.Manager.GetProperty<int>("currentFloor"); }
 
-		public void Start()
-		{
-
-		}
 		void OnTriggerEnter2D(Collider2D collider2D)
 		{
-			Human.Script human = collider2D.GetComponent<Human.Script>();
+			Player.Script player = collider2D.GetComponent<Player.Script>();
 
-			if (!human || !human.photonView.IsMine) return;
+			if (!player || !player.photonView.IsMine) return;
 
 			if (CurrentFloor == 2)
 				Player.Manager.SetProperty("currentFloor", 1);

@@ -32,7 +32,6 @@ namespace Human
 
 			health = maxHealth;
 			controller = GetComponent<Controller>();
-			Network.Event.floorChanged += OnPlayerChangedFloor;
 		}
 
 		public override void Damage(float amount)
@@ -59,13 +58,6 @@ namespace Human
 
 				Player.Manager.SetProperty("isDead", true);
 			}
-		}
-
-		public void OnPlayerChangedFloor(Photon.Realtime.Player player)
-		{
-			int myFloor = Player.Manager.GetProperty<int>("currentFloor");
-			int otherFloor = (int)photonView.Owner.CustomProperties["currentFloor"];
-			gameObject.SetActive(myFloor == otherFloor);
 		}
 
 		public void OnPhotonInstantiate(PhotonMessageInfo info)
