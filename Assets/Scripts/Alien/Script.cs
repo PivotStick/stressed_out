@@ -10,7 +10,7 @@ namespace Alien
         ALIEN = 3,
     }
 
-    public class Vision : MonoBehaviourPun, IPunInstantiateMagicCallback
+    public class Script : Player.Script, IPunInstantiateMagicCallback
     {
         [SerializeField] private Material unlitMat;
 

@@ -23,6 +23,7 @@ namespace Audio
         private float particleMultiplier;
         private float speedMultiplier;
         private float volume;
+        private int floorLevel;
 
         private float FilterTarget
         {
@@ -69,7 +70,8 @@ namespace Audio
             source.volume = distPercent;
             source.panStereo = horizontalDiff;
 
-            filter.cutoffFrequency += (int)((FilterTarget - filter.cutoffFrequency) * 0.2);
+            if (Player.Manager.CurrentFloor == floorLevel)
+                filter.cutoffFrequency += (int)((FilterTarget - filter.cutoffFrequency) * 0.2);
         }
 
         private IEnumerator SoundWave()
@@ -116,9 +118,17 @@ namespace Audio
             var col = this.particles.collision;
             col.collidesWith = settings.collisionMask;
 
+            var sameFloor = Player.Manager.CurrentFloor == floorLevel;
+
+            if (!sameFloor)
+            {
+                var floorDiff = floorLevel - Player.Manager.CurrentFloor;
+                filter.cutoffFrequency = 900 / Mathf.Abs(floorDiff);
+            }
+
             source.Play();
 
-            if (Player.Manager.MyRole == Player.RoleID.Alien) StartCoroutine(SoundWave());
+            if (sameFloor && Player.Manager.MyRole == Player.RoleID.Alien) StartCoroutine(SoundWave());
         }
 
         public void OnPhotonInstantiate(PhotonMessageInfo info)
@@ -132,6 +142,7 @@ namespace Audio
             volume = Mathf.Clamp01((float)datas[1]);
             particleMultiplier = (float)datas[3];
             speedMultiplier = (float)datas[4];
+            floorLevel = (int)datas[6];
             settings = Scriptable.GetById(soundID);
 
             filter.cutoffFrequency = FilterTarget;

@@ -12,6 +12,7 @@ namespace Player
 		public static Photon.Realtime.Player[] Aliens { get => PlayersOfRole(RoleID.Alien); }
 		public static Photon.Realtime.Player Me { get => PhotonNetwork.LocalPlayer; }
 		public static RoleID MyRole { get => GetProperty<RoleID>("Role"); }
+		public static int CurrentFloor { get => GetProperty<int>("currentFloor"); }
 
 		public static GameObject Player
 		{
