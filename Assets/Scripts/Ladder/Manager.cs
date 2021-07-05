@@ -16,10 +16,9 @@ namespace Ladder
 
 			if (!player || !player.photonView.IsMine) return;
 
-			if (CurrentFloor == 2)
-				Player.Manager.SetProperty("currentFloor", 1);
-			else
-				Player.Manager.SetProperty("currentFloor", 2);
+			Debug.Log($"{player.gameObject.name} is entering");
+
+			Player.Manager.SetProperty("currentFloor", CurrentFloor == 2 ? 1 : 2);
 
 			Network.Event.floorChanged += OnPlayerChangedFloor;
 		}
@@ -32,12 +31,6 @@ namespace Ladder
 				floor.OnChangeLevel(CurrentFloor);
 			}
 		}
-
-		void OnTriggerExit2D(Collider2D collider2D)
-		{
-			Debug.Log("on quit l'echelle");
-		}
-
 	}
 }
 

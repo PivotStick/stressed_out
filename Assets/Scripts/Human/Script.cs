@@ -30,7 +30,6 @@ namespace Human
 			if (Player.Manager.MyRole == Player.RoleID.Alien)
 				SetParticleMaterial(unlit);
 
-			health = maxHealth;
 			controller = GetComponent<Controller>();
 		}
 
