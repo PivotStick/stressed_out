@@ -70,7 +70,8 @@ namespace Audio
             source.volume = distPercent;
             source.panStereo = horizontalDiff;
 
-            filter.cutoffFrequency += (int)((FilterTarget - filter.cutoffFrequency) * 0.2);
+            if (Player.Manager.CurrentFloor == floorLevel)
+                filter.cutoffFrequency += (int)((FilterTarget - filter.cutoffFrequency) * 0.2);
         }
 
         private IEnumerator SoundWave()
