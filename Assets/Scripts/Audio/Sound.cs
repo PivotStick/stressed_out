@@ -121,8 +121,8 @@ namespace Audio
 
             if (!sameFloor)
             {
-                var filter = gameObject.AddComponent<AudioLowPassFilter>();
-                filter.cutoffFrequency = 1500 / Mathf.Abs(floorLevel - Player.Manager.CurrentFloor);
+                var floorDiff = floorLevel - Player.Manager.CurrentFloor;
+                filter.cutoffFrequency = 1500 / Mathf.Abs(floorDiff);
             }
 
             source.Play();
