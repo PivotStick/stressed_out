@@ -5,8 +5,14 @@ using Photon.Pun;
 
 namespace Alien
 {
-    public class AttackCollisions : MonoBehaviour
+    public class AttackCollisions : MonoBehaviourPun
     {
+        void Awake()
+        {
+            if (!photonView.IsMine)
+                Destroy(gameObject);
+        }
+
         void OnTriggerEnter2D(Collider2D col)
         {
             if (!col.gameObject.CompareTag("Player")) return;
