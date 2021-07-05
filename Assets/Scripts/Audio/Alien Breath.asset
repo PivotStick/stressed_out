@@ -23,6 +23,6 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 192
-  alienDistance: 2
+  alienDistance: 4
   maxDistance: 2
   loop: 0

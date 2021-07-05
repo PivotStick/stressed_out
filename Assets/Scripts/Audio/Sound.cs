@@ -54,7 +54,7 @@ namespace Audio
             if (!source.isPlaying && !particles.IsAlive())
                 Destroy(gameObject);
 
-            if (listener != null)
+            if (listener != null && settings != null)
                 ResolveSpatial();
         }
 

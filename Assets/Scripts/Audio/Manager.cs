@@ -50,11 +50,14 @@ namespace Audio
 
         private void Start()
         {
-            if (instance != this)
+            if (instance == null)
             {
                 instance = this;
-                DontDestroyOnLoad(this);
+                DontDestroyOnLoad(gameObject);
                 DontDestroyOnLoad(bgSource.gameObject);
+            } else {
+                Destroy(gameObject);
+                Destroy(bgSource.gameObject);
             }
 
             Scriptable.sounds = sounds;
