@@ -123,7 +123,7 @@ namespace Audio
             if (!sameFloor)
             {
                 var floorDiff = floorLevel - Player.Manager.CurrentFloor;
-                filter.cutoffFrequency = 1500 / Mathf.Abs(floorDiff);
+                filter.cutoffFrequency = 900 / Mathf.Abs(floorDiff);
             }
 
             source.Play();
