@@ -62,5 +62,6 @@ public class TransitionManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene(0);
         FadeOut();
+        Network.Manager.instance.LeaveRoom();
     }
 }
