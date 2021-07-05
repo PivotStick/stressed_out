@@ -5,15 +5,21 @@ using Photon.Realtime;
 
 public class CanvasManager : MonoBehaviour
 {
-    private static CanvasManager instance = null;
+    public static CanvasManager instance = null;
 
     [SerializeField] private Text nickNameText;
     [SerializeField] private GameObject[] menus;
 
     private void Start()
     {
-        if (instance != this)
+        if (instance == null)
+        {
             instance = this;
+            DontDestroyOnLoad(gameObject);
+        } else {
+            Destroy(gameObject);
+            return;
+        }
 
         Network.Manager.connected += OnConnected;
         Network.Manager.nickNameChanged += (nickName) => {
