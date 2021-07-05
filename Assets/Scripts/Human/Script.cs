@@ -25,7 +25,6 @@ namespace Human
 
 		public void Start()
 		{
-			Player.Manager.InitProperties();
 			pointLight.SetActive(photonView.IsMine);
 			SetParticleMaterial(lit);
 			if (Player.Manager.MyRole == Player.RoleID.Alien)

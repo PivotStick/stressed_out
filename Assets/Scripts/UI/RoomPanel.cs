@@ -75,11 +75,7 @@ public class RoomPanel : MonoBehaviour
             role = (Player.RoleID)players[randomIndex].CustomProperties["Role"];
         }
 
-        var props = new Hashtable();
-
-        props.Add("Role", Player.RoleID.Alien);
-
-        players[randomIndex].SetCustomProperties(props);
+        SetRoleTo(players[randomIndex], Player.RoleID.Alien);
     }
 
     private void SetRoleTo(Photon.Realtime.Player player, Player.RoleID role)
