@@ -10,8 +10,7 @@ namespace Ladder
 
 		public void Start()
 		{
-			int currentFloor = Player.Manager.GetProperty<int>("currentFloor");
-			OnChangeLevel(currentFloor);
+			OnChangeLevel(Player.Manager.CurrentFloor);
 		}
 
 		public void OnChangeLevel(int floorLevel)

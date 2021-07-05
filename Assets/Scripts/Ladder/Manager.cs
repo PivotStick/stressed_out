@@ -8,7 +8,6 @@ namespace Ladder
 	public class Manager : MonoBehaviourPun
 	{
 		public Floor[] floors;
-		private int CurrentFloor { get => Player.Manager.GetProperty<int>("currentFloor"); }
 
 		void OnTriggerEnter2D(Collider2D collider2D)
 		{
@@ -18,7 +17,10 @@ namespace Ladder
 
 			Debug.Log($"{player.gameObject.name} is entering");
 
-			Player.Manager.SetProperty("currentFloor", CurrentFloor == 2 ? 1 : 2);
+			Player.Manager.SetProperty(
+				"currentFloor",
+				Player.Manager.CurrentFloor == 2 ? 1 : 2
+			);
 
 			Network.Event.floorChanged += OnPlayerChangedFloor;
 		}
@@ -28,7 +30,7 @@ namespace Ladder
 			Network.Event.floorChanged -= OnPlayerChangedFloor;
 			foreach (var floor in floors)
 			{
-				floor.OnChangeLevel(CurrentFloor);
+				floor.OnChangeLevel(Player.Manager.CurrentFloor);
 			}
 		}
 	}

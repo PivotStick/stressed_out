@@ -51,6 +51,7 @@ namespace Human
 			Audio.Manager.instance.PlaySoundAt(
 				transform.position,
 				Audio.ID.HumanStep,
+				Player.Manager.CurrentFloor,
 
 				volume: percent,
 				particleMultiplier: percent * 10,

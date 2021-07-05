@@ -39,7 +39,7 @@ namespace Player
 
 		public void OnPlayerChangedFloor(Photon.Realtime.Player player)
 		{
-			int myFloor = Player.Manager.GetProperty<int>("currentFloor");
+			int myFloor = Player.Manager.CurrentFloor;
 			int otherFloor = (int)photonView.Owner.CustomProperties["currentFloor"];
 			gameObject.SetActive(myFloor == otherFloor);
 		}

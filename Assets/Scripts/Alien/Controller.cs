@@ -106,7 +106,12 @@ namespace Alien
 
             stepTimer = 0;
             var percent = moveSpeed / maxSpeed;
-            Audio.Manager.instance.PlaySoundAt(transform.position, Audio.ID.LoudStep, percent,
+            Audio.Manager.instance.PlaySoundAt(
+                transform.position,
+                Audio.ID.LoudStep,
+                Player.Manager.CurrentFloor,
+
+                percent,
                 speedMultiplier: percent * 3,
                 particleMultiplier: percent * 3f
             );
@@ -140,6 +145,8 @@ namespace Alien
             Audio.Manager.instance.PlaySoundAt(
                 transform.position,
                 sound,
+                Player.Manager.CurrentFloor,
+
                 volume,
                 photonView.ViewID,
                 particleMultiplier,
