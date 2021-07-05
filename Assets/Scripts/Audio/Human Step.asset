@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa1b503d65515d47a5ef35564fc6f53, type: 3}
+  m_Name: Human Step
+  m_EditorClassIdentifier: 
+  id: 2
+  clips:
+  - {fileID: 8300000, guid: a92357de643bb1949a36f5c5316e6b29, type: 3}
+  - {fileID: 8300000, guid: 7e024b8bb844f3e428efb1998f175043, type: 3}
+  - {fileID: 8300000, guid: f1f7536473f35e3449aa464bb15dae94, type: 3}
+  - {fileID: 8300000, guid: 14b398470c42bdb4e82d614fa37c83b6, type: 3}
+  - {fileID: 8300000, guid: baae82406deacb843bcf60ef5d42fefe, type: 3}
+  - {fileID: 8300000, guid: 38b7eeb81eef87740848b9127079265d, type: 3}
+  - {fileID: 8300000, guid: c9aadf0f0e196804498fc35f13da4655, type: 3}
+  - {fileID: 8300000, guid: 94ff2c45ad550e7468e0a2070247b029, type: 3}
+  - {fileID: 8300000, guid: e8b7c2a5920e81849baabd36a58e560f, type: 3}
+  - {fileID: 8300000, guid: 139a974c6c6d32f4cb4f605f238d002a, type: 3}
+  - {fileID: 8300000, guid: f59a449e055b86c4badbacf60d20de59, type: 3}
+  sensivity: 0.015
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 72
+  alienDistance: 0.35
+  maxDistance: 8
+  loop: 0

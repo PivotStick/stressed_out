@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa1b503d65515d47a5ef35564fc6f53, type: 3}
+  m_Name: Loud Step
+  m_EditorClassIdentifier: 
+  id: 1
+  clips:
+  - {fileID: 8300000, guid: 0434f2714c8be9a44a4b354ea13e7638, type: 3}
+  - {fileID: 8300000, guid: 1f6958456493d0c4db3b2aeb9d8093b7, type: 3}
+  - {fileID: 8300000, guid: 3b887a8063e165c4ab440f78a66a7eb8, type: 3}
+  - {fileID: 8300000, guid: dbb3889a1f3251f47b9eb26fb7ce3cfd, type: 3}
+  - {fileID: 8300000, guid: e67dc075b0509f94088774f5acb1b8de, type: 3}
+  - {fileID: 8300000, guid: 17188f40a1f1a034b9c25e3f829f721a, type: 3}
+  - {fileID: 8300000, guid: 594b266a06308d446ba87e3fd0f7b554, type: 3}
+  - {fileID: 8300000, guid: 202afcaa7674ee24db237588a31235c8, type: 3}
+  - {fileID: 8300000, guid: d87d9338cdc638140abe5102404da2f4, type: 3}
+  - {fileID: 8300000, guid: 0e1adbef75ea0df449edc9aa74aae655, type: 3}
+  - {fileID: 8300000, guid: a25e45fd393d2464ca314c749bdbe61d, type: 3}
+  - {fileID: 8300000, guid: e6c9a239530346b4580c5fa892bf9b9f, type: 3}
+  - {fileID: 8300000, guid: 066fb9ef1d8c25f4e91e5a297133bcab, type: 3}
+  - {fileID: 8300000, guid: 89ea15f333643ca4e97930b4989e9cc5, type: 3}
+  - {fileID: 8300000, guid: 25bb488bedc326242893d0678c96299c, type: 3}
+  sensivity: 0.02
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 192
+  alienDistance: 3
+  maxDistance: 10
+  loop: 0

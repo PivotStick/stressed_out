@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa1b503d65515d47a5ef35564fc6f53, type: 3}
+  m_Name: Alien Warning Breath
+  m_EditorClassIdentifier: 
+  id: 5
+  clips:
+  - {fileID: 8300000, guid: a919f93b85b1b144fa2bd3ab0a9d1748, type: 3}
+  - {fileID: 8300000, guid: 095b5972a1319704a9d4b1d01782bf7d, type: 3}
+  - {fileID: 8300000, guid: ed3669bdd4a851d49ada30d1dc2a367d, type: 3}
+  - {fileID: 8300000, guid: 2f78200f8c1ad2b4596892e40861309f, type: 3}
+  - {fileID: 8300000, guid: e132a18f27f66e84aa525d97e4982f96, type: 3}
+  - {fileID: 8300000, guid: 40d55698161b60e41993db1d6d62cbfb, type: 3}
+  sensivity: 0.015
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 192
+  alienDistance: 3
+  maxDistance: 4
+  loop: 0

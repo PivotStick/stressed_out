@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa1b503d65515d47a5ef35564fc6f53, type: 3}
+  m_Name: Alien Breath
+  m_EditorClassIdentifier: 
+  id: 3
+  clips:
+  - {fileID: 8300000, guid: 169723020e153b54fbd481aac238a7c6, type: 3}
+  - {fileID: 8300000, guid: 9633ccd663c8a1a40b3ad61f4e907af3, type: 3}
+  - {fileID: 8300000, guid: e9c46c095ad576d4192eb188b37be826, type: 3}
+  - {fileID: 8300000, guid: b73749ec0463f314b94c946a0bdbdcb6, type: 3}
+  - {fileID: 8300000, guid: c0d6bd9aaae507b4b942fef5a09d43f4, type: 3}
+  sensivity: 0.015
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 192
+  alienDistance: 2
+  maxDistance: 2
+  loop: 0
