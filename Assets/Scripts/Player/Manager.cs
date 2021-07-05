@@ -26,7 +26,6 @@ namespace Player
 
 		public static void SetProperty(string key, object value)
 		{
-
 			var props = new ExitGames.Client.Photon.Hashtable();
 			props.Add(key, value);
 			Me.SetCustomProperties(props);
