@@ -27,12 +27,12 @@ namespace Audio
             var soundIndex = Random.Range(0, Scriptable.GetById(soundID).clips.Length);
             var datas = new object[] {
                 soundID,
+                floorLevel,
                 volume,
                 viewId,
                 particleMultiplier,
                 speedMultiplier,
                 soundIndex,
-                floorLevel,
             };
 
             PhotonNetwork.Instantiate(

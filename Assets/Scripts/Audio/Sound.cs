@@ -136,13 +136,13 @@ namespace Audio
             var datas = info.photonView.InstantiationData;
 
             var soundID = (ID)datas[0];
-            var viewId = (int)datas[2];
-            var soundIndex = (int)datas[5];
+            var viewId = (int)datas[3];
+            var soundIndex = (int)datas[6];
 
-            volume = Mathf.Clamp01((float)datas[1]);
-            particleMultiplier = (float)datas[3];
-            speedMultiplier = (float)datas[4];
-            floorLevel = (int)datas[6];
+            volume = Mathf.Clamp01((float)datas[2]);
+            particleMultiplier = (float)datas[4];
+            speedMultiplier = (float)datas[5];
+            floorLevel = (int)datas[1];
             settings = Scriptable.GetById(soundID);
 
             filter.cutoffFrequency = FilterTarget;

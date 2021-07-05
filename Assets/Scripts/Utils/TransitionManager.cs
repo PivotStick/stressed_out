@@ -63,5 +63,6 @@ public class TransitionManager : MonoBehaviour
         SceneManager.LoadScene(0);
         FadeOut();
         CanvasManager.instance.gameObject.SetActive(true);
+        Player.Manager.InitProperties();
     }
 }
