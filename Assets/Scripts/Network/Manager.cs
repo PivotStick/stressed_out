@@ -52,11 +52,13 @@ namespace Network
 				MaxPlayers = MAX_PLAYERS,
 				BroadcastPropsChangeToAll = true,
 			}, TypedLobby.Default);
+			Voice.CreateRoom(roomName);
 		}
 
 		public void JoinRoom(string roomName)
 		{
 			PhotonNetwork.JoinRoom(roomName);
+			Voice.JoinRoom(roomName);
 		}
 
 		public void LeaveRoom()
