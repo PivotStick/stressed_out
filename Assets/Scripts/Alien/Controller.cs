@@ -20,8 +20,9 @@ namespace Alien
         private float warningTimeout = 4;
         private float warningTimer;
 
-        private void Start()
+        protected override void Awake()
         {
+            base.Awake();
             attack = GetComponentInChildren<PolygonCollider2D>();
 
             moveSpeed = 0.75f;

@@ -7,8 +7,10 @@ namespace Human
 		private float stepTimer = 0;
 		private Inputs inputs;
 
-		void Start()
-		{
+        protected override void Awake()
+        {
+            base.Awake();
+
 			moveSpeed = 1.5f;
 			minSpeed = 0.75f;
 			maxSpeed = 2.5f;

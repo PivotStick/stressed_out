@@ -14,7 +14,7 @@ namespace Player
         protected Rigidbody2D rbd;
         private Inputs inputs;
 
-        void Awake()
+        protected virtual void Awake()
         {
             rbd = GetComponent<Rigidbody2D>();
             inputs = new Inputs();

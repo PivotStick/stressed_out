@@ -11,7 +11,7 @@ namespace Network
     {
         public void OnPhotonInstantiate(PhotonMessageInfo info)
         {
-            if (photonView.IsMine)
+            if (!photonView.IsMine)
             {
                 var speaker = gameObject.AddComponent<Speaker>();
                 GetComponent<PhotonVoiceView>().SpeakerInUse = speaker;
