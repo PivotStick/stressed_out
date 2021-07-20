@@ -25,8 +25,8 @@ namespace Player
             rbd.velocity = inputs.Movements.Move.ReadValue<Vector2>() * moveSpeed;
         }
 
-        void OnEnable() => inputs.Enable();
-        void OnDisable() => inputs.Disable();
+        void OnEnable() => SetEnabled(true);
+        void OnDisable() => SetEnabled(false);
 
         public virtual void SetEnabled(bool enabled)
         {

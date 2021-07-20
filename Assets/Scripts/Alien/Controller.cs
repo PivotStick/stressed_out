@@ -133,8 +133,13 @@ namespace Alien
             );
         }
 
-        private void OnDisable() => inputs.Disable();
-        private void OnEnable() => inputs.Enable();
+        public override void SetEnabled(bool enabled)
+        {
+            base.SetEnabled(enabled);
+
+            if (enabled) inputs.Enable();
+            else inputs.Disable();
+        }
 
         private void MakeMouthSound(Audio.ID sound, float volume = 1, float speedMultiplier = 1, float particleMultiplier = 1)
         {

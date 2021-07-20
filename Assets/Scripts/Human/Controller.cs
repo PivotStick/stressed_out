@@ -55,9 +55,6 @@ namespace Human
 			);
 		}
 
-		private void OnDisable() => inputs.Disable();
-		private void OnEnalbe() => inputs.Enable();
-
 		public override void SetEnabled(bool enabled)
 		{
 			base.SetEnabled(enabled);
