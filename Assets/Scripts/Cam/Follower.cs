@@ -6,15 +6,16 @@ namespace Cam
     {
         static public GameObject target = null;
 
-        private Vector2 diff;
+        private Vector2 Pos
+        {
+            get => transform.position;
+            set => transform.position += (Vector3)(value - Pos * 0.1f);
+        }
 
         void FixedUpdate()
         {
             if (target != null)
-            {
-                diff = target.transform.position - transform.position;
-                transform.position += (Vector3)(diff * 0.1f);
-            }
+                Pos = target.transform.position;
         }
     }
 }

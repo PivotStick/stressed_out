@@ -46,7 +46,7 @@ namespace Human
 			var main = blood.main;
 			main.startLifetime = 25;
 			blood.Emit(35);
-			controller.DisableControls();
+			controller.SetEnabled(false);
 
 			if (photonView.IsMine)
 			{

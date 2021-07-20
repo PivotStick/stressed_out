@@ -12,9 +12,7 @@ namespace Player
 		protected float maxHealth = 100f;
 		protected float health;
 
-        public bool IsDead {
-            get => health <= 0;
-        }
+        public bool IsDead { get => health <= 0; }
 
         void Awake()
         {
@@ -33,8 +31,9 @@ namespace Player
 			if (IsDead) Die();
         }
 
-		public virtual void Die() {
-            controller.DisableControls();
+		public virtual void Die()
+		{
+			controller.SetEnabled(false);
         }
 
 		public void OnPlayerChangedFloor(Photon.Realtime.Player player)

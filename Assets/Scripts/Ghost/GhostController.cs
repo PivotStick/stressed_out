@@ -13,14 +13,15 @@ namespace Ghost
 
         private void Awake()
         {
+            Player.Main.local = gameObject;
+
             inputs = new Human.Inputs();
-            inputs.Enable();
             body = GetComponent<Rigidbody2D>();
         }
 
         private void FixedUpdate()
         {
-            body.velocity = (Vector3)inputs.Movements.Move.ReadValue<Vector2>() * moveSpeed;
+            body.velocity = inputs.Movements.Move.ReadValue<Vector2>() * moveSpeed;
         }
 
         private void OnEnable() => inputs.Enable();

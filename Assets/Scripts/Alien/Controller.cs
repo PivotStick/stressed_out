@@ -7,8 +7,7 @@ namespace Alien
     [RequireComponent(typeof (Rigidbody2D))]
     public class Controller : Player.Controller
     {
-        [SerializeField] private PolygonCollider2D attack;
-
+        private PolygonCollider2D attack;
         private Inputs inputs;
         private float stepTimer = 0f;
 
@@ -23,11 +22,11 @@ namespace Alien
 
         private void Start()
         {
+            attack = GetComponentInChildren<PolygonCollider2D>();
+
             moveSpeed = 0.75f;
             minSpeed = 0.75f;
             maxSpeed = 4f;
-
-            if (!photonView.IsMine) return;
 
             inputs = new Inputs();
             inputs.Movements.Speed.performed += OnSpeedChange;
@@ -45,8 +44,6 @@ namespace Alien
 
         private void Update()
         {
-            if (!photonView.IsMine) return;
-
             if (rbd.velocity.magnitude > 0)
                 Step();
             
@@ -135,10 +132,8 @@ namespace Alien
             );
         }
 
-        private void OnDisable()
-        {
-            inputs.Disable();
-        }
+        private void OnDisable() => inputs.Disable();
+        private void OnEnable() => inputs.Enable();
 
         private void MakeMouthSound(Audio.ID sound, float volume = 1, float speedMultiplier = 1, float particleMultiplier = 1)
         {

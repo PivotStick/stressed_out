@@ -42,7 +42,7 @@ namespace Audio
             filter = GetComponent<AudioLowPassFilter>();
             particles = GetComponentInChildren<ParticleSystem>();
 
-            listener = Player.Manager.Player;
+            listener = Player.Main.local;
             isAlien = Player.Manager.MyRole == Player.RoleID.Alien;
         }
 
