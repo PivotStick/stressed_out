@@ -30,8 +30,9 @@ namespace Human
             if (Player.Manager.MyRole == Player.RoleID.Alien)
             {
                 var emitter = gameObject.AddComponent<SoundParticleEmitter>();
-                system.transform.SetParent(transform);
-                emitter.particles = system;
+                var systemInstance = Instantiate(system);
+                systemInstance.gameObject.transform.SetParent(transform);
+                emitter.particles = systemInstance;
             }
         }
     }
