@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 using Photon.Pun;
 using Photon.Realtime;
+using Photon.Voice.PUN;
 
 namespace Network
 {

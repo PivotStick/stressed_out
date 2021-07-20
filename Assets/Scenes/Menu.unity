@@ -407,7 +407,7 @@ MonoBehaviour:
     NetworkLogging: 1
   ShowSettings: 1
   MinimalTimeScaleToDispatchInFixedUpdate: -1
-  AutoCreateSpeakerIfNotFound: 0
+  AutoCreateSpeakerIfNotFound: 1
   AutoConnectAndJoin: 1
   AutoLeaveAndDisconnect: 1
   WorkInOfflineMode: 1
