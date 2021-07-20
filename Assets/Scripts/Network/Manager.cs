@@ -13,6 +13,7 @@ namespace Network
 	public class Manager : MonoBehaviourPunCallbacks
 	{
 		public const int MAX_PLAYERS = 10;
+		public GameObject speaker;
 
 		public static Manager instance = null;
 
@@ -52,13 +53,11 @@ namespace Network
 				MaxPlayers = MAX_PLAYERS,
 				BroadcastPropsChangeToAll = true,
 			}, TypedLobby.Default);
-			Voice.CreateRoom(roomName);
 		}
 
 		public void JoinRoom(string roomName)
 		{
 			PhotonNetwork.JoinRoom(roomName);
-			Voice.JoinRoom(roomName);
 		}
 
 		public void LeaveRoom()
@@ -107,6 +106,7 @@ namespace Network
 		public override void OnJoinedRoom()
 		{
 			InvokeRoomJoined();
+			PhotonNetwork.Instantiate(speaker.name, Vector3.zero, Quaternion.identity);
 		}
 
 		public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
