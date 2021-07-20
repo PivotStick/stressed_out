@@ -9,6 +9,7 @@ namespace Human
     public class Main : Player.Main
     {
         public LayerMask wallsMask;
+        public ParticleSystem system;
 
         protected override void InitLocal()
         {
@@ -25,6 +26,13 @@ namespace Human
             resolver.wallsMask = wallsMask;
 
             GetComponent<PhotonVoiceView>().SpeakerInUse = speaker;
+
+            if (Player.Manager.MyRole == Player.RoleID.Alien)
+            {
+                var emitter = gameObject.AddComponent<SoundParticleEmitter>();
+                system.transform.SetParent(transform);
+                emitter.particles = system;
+            }
         }
     }
 }
