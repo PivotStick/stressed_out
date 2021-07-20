@@ -8,6 +8,8 @@ namespace Human
 {
     public class Main : Player.Main
     {
+        public LayerMask wallsMask;
+
         protected override void InitLocal()
         {
             gameObject.AddComponent<Controller>();
@@ -15,8 +17,13 @@ namespace Human
 
         protected override void InitRemote()
         {
-            gameObject.AddComponent<AudioSource>();
+            var source = gameObject.AddComponent<AudioSource>();
             var speaker = gameObject.AddComponent<Speaker>();
+            var resolver = gameObject.AddComponent<AudioResolver>();
+
+            resolver.source = source;
+            resolver.wallsMask = wallsMask;
+
             GetComponent<PhotonVoiceView>().SpeakerInUse = speaker;
         }
     }

@@ -14,7 +14,7 @@ namespace Player
             if (photonView.IsMine)
             {
                 local = gameObject;
-                
+
                 InitLocal();
             }
             else
