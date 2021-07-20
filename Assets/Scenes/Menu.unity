@@ -381,7 +381,7 @@ MonoBehaviour:
   updateInterval: 50
   runInBackground: 1
   statsResetInterval: 1000
-  speakerPrefab: {fileID: 0}
+  speakerPrefab: {fileID: 8131424755859064127, guid: d0cbcfada0c144efc8e80dc1446cfbf6, type: 3}
   primaryRecorder: {fileID: 816760815}
   globalRecordersLogLevel: 0
   globalSpeakersLogLevel: 0
