@@ -7,8 +7,6 @@ namespace Player
 {
 	public class Script : MonoBehaviourPun
     {
-        private Controller controller;
-
 		protected float maxHealth = 100f;
 		protected float health;
 
@@ -16,7 +14,6 @@ namespace Player
 
         void Awake()
         {
-            controller = GetComponent<Controller>();
             health = maxHealth;
 			Network.Event.floorChanged += OnPlayerChangedFloor;
         }
@@ -31,10 +28,7 @@ namespace Player
 			if (IsDead) Die();
         }
 
-		public virtual void Die()
-		{
-			Destroy(controller);
-        }
+		public virtual void Die() {}
 
 		public void OnPlayerChangedFloor(Photon.Realtime.Player player)
 		{

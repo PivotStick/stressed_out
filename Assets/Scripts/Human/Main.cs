@@ -11,9 +11,11 @@ namespace Human
         public LayerMask wallsMask;
         public ParticleSystem system;
 
+        public static Controller controller;
+
         protected override void InitLocal()
         {
-            gameObject.AddComponent<Controller>();
+            controller = gameObject.AddComponent<Controller>();
         }
 
         protected override void InitRemote()
