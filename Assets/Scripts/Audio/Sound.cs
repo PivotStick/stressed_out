@@ -27,13 +27,13 @@ namespace Audio
 
         private float FilterTarget
         {
-            get => Physics2D.Linecast(
+            get => Listener ? Physics2D.Linecast(
                 transform.position,
                 Listener.transform.position,
                 walls
             ).collider == null
                 ? 22000
-                : 2000;
+                : 2000 : 0;
         }
 
         private void Awake()
@@ -134,7 +134,7 @@ namespace Audio
         {
             var datas = info.photonView.InstantiationData;
 
-            Debug.Log(datas);
+            // Debug.Log(datas);
 
             var soundID = (ID)datas[0];
             var viewId = (int)datas[2];

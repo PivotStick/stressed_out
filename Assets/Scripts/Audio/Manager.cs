@@ -50,7 +50,7 @@ namespace Audio
 
         private void Start()
         {
-            if (instance != this)
+            if (instance == null)
             {
                 instance = this;
                 DontDestroyOnLoad(gameObject);

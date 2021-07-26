@@ -30,7 +30,9 @@ namespace Network
 			if (instance == null)
 			{
 				instance = this;
-				DontDestroyOnLoad(this);
+				DontDestroyOnLoad(gameObject);
+			} else {
+				Destroy(gameObject);
 			}
 		}
 
