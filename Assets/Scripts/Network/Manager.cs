@@ -105,6 +105,7 @@ namespace Network
 
 		public void InstantiateSpeaker()
 		{
+			VoiceRecorder.UnMute();
 			PhotonNetwork.Instantiate(speaker.name, Vector3.zero, Quaternion.identity);
 		}
 

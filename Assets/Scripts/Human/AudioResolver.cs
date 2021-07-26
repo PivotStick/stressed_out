@@ -11,7 +11,7 @@ namespace Human
         public LayerMask wallsMask;
         public AudioSource source;
 
-        private AudioLowPassFilter filter;
+        public AudioLowPassFilter filter;
 
         private float MaxDistance { get => 12; }
         private float CutoffFrequency
@@ -20,10 +20,6 @@ namespace Human
             set => filter.cutoffFrequency += (value - filter.cutoffFrequency) * 0.1f;
         }
 
-        void Start()
-        {
-            filter = gameObject.AddComponent<AudioLowPassFilter>();
-        }
 
         void FixedUpdate()
         {
