@@ -38,7 +38,7 @@ namespace Human
         void Emit()
         {
             var circle = Mathf.PI * 2;
-            var count = currentVolume > 0.025f ? 1 : 0;
+            var count = currentVolume > 0.01f ? 1 : 0;
             var lifetime = currentVolume * 10;
             var speed = currentVolume * 20;
 
