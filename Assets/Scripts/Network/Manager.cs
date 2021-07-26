@@ -103,10 +103,15 @@ namespace Network
 			return PhotonNetwork.IsMasterClient;
 		}
 
+		public void InstantiateSpeaker()
+		{
+			PhotonNetwork.Instantiate(speaker.name, Vector3.zero, Quaternion.identity);
+		}
+
 		public override void OnJoinedRoom()
 		{
 			InvokeRoomJoined();
-			PhotonNetwork.Instantiate(speaker.name, Vector3.zero, Quaternion.identity);
+			InstantiateSpeaker();
 		}
 
 		public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)

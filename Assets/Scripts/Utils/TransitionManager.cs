@@ -65,5 +65,6 @@ public class TransitionManager : MonoBehaviour
         SceneManager.LoadScene(0);
         FadeOut();
         CanvasManager.instance.gameObject.SetActive(true);
+        Network.Manager.instance.InstantiateSpeaker();
     }
 }
