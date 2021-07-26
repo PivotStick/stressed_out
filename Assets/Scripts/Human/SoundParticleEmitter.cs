@@ -13,6 +13,8 @@ namespace Human
         void Start()
         {
             StartCoroutine(SoundWave());
+            var shape = particles.shape;
+            shape.radius = 0.5f;
         } 
 
         void OnAudioFilterRead(float[] samples, int channels)
@@ -29,15 +31,16 @@ namespace Human
             while (isActiveAndEnabled)
             {
                 Emit();
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForSeconds(0.05f);
             }
         }
 
         void Emit()
         {
             var circle = Mathf.PI * 2;
-            var count = currentVolume > 0.01f ? 1 : 0;
-            var lifetime = currentVolume * 50;
+            var count = currentVolume > 0.025f ? 1 : 0;
+            var lifetime = currentVolume * 10;
+            var speed = currentVolume * 20;
 
             for (float i = 0; i < circle; i += circle / 50)
             {
@@ -46,7 +49,7 @@ namespace Human
                     velocity = new Vector2(
                         Mathf.Cos(i),
                         Mathf.Sin(i)
-                    ) * lifetime,
+                    ) * speed,
                 }, count);
             }
         }

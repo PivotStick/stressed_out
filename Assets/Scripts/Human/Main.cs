@@ -32,6 +32,7 @@ namespace Human
                 var emitter = gameObject.AddComponent<SoundParticleEmitter>();
                 var systemInstance = Instantiate(system);
                 systemInstance.gameObject.transform.SetParent(transform);
+                systemInstance.gameObject.transform.position = transform.position;
                 emitter.particles = systemInstance;
             }
         }
