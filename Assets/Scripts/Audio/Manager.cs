@@ -53,8 +53,11 @@ namespace Audio
             if (instance != this)
             {
                 instance = this;
-                DontDestroyOnLoad(this);
+                DontDestroyOnLoad(gameObject);
                 DontDestroyOnLoad(bgSource.gameObject);
+            } else {
+                Destroy(gameObject);
+                Destroy(bgSource.gameObject);
             }
 
             Scriptable.sounds = sounds;

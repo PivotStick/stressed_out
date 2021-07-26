@@ -152,7 +152,7 @@ namespace Audio
 
             if (viewId == -1) return;
 
-            follow = Network.Manager.instance.GetView(viewId).gameObject;
+            follow = Network.Manager.instance.GetView(viewId)?.gameObject;
         }
 
 #if (UNITY_EDITOR)
