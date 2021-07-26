@@ -33,7 +33,7 @@ namespace Player
 
 		public virtual void Die()
 		{
-			controller.SetEnabled(false);
+			Destroy(controller);
         }
 
 		public void OnPlayerChangedFloor(Photon.Realtime.Player player)

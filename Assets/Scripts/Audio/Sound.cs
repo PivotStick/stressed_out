@@ -53,7 +53,7 @@ namespace Audio
             if (!source.isPlaying && !particles.IsAlive())
                 Destroy(gameObject);
 
-            if (Listener != null)
+            if (Listener && settings)
                 ResolveSpatial();
         }
 
@@ -133,6 +133,8 @@ namespace Audio
         public void OnPhotonInstantiate(PhotonMessageInfo info)
         {
             var datas = info.photonView.InstantiationData;
+
+            Debug.Log(datas);
 
             var soundID = (ID)datas[0];
             var viewId = (int)datas[2];
