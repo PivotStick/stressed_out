@@ -13,7 +13,7 @@ namespace Cam
             if (target != null)
             {
                 diff = target.transform.position - transform.position;
-                transform.position += (Vector3)(diff * 0.1f);
+                transform.position += (Vector3)diff * 0.1f;
             }
         }
     }

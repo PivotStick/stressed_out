@@ -14,7 +14,7 @@ namespace Human
 		[SerializeField] private Material lit;
 		[SerializeField] private GameObject ghostPrefab;
 
-		private Controller controller;
+		private Main mainScript;
 
 		private void SetParticleMaterial(Material material)
 		{
@@ -25,12 +25,15 @@ namespace Human
 
 		public void Start()
 		{
+			mainScript = GetComponent<Main>();
 			pointLight.SetActive(photonView.IsMine);
-			SetParticleMaterial(lit);
-			if (Player.Manager.MyRole == Player.RoleID.Alien)
-				SetParticleMaterial(unlit);
+			mainScript.components.Add(this);
 
-			controller = GetComponent<Controller>();
+			SetParticleMaterial(
+				Player.Manager.MyRole == Player.RoleID.Alien
+					? unlit
+					: lit
+			);
 		}
 
 		public override void Damage(float amount)
@@ -46,7 +49,6 @@ namespace Human
 			var main = blood.main;
 			main.startLifetime = 25;
 			blood.Emit(35);
-			controller.DisableControls();
 
 			if (photonView.IsMine)
 			{
@@ -57,6 +59,9 @@ namespace Human
 
 				Player.Manager.SetProperty("isDead", true);
 			}
+
+			mainScript.DestroyComponents();
+			Network.VoiceRecorder.Mute();
 		}
 
 		public void OnPhotonInstantiate(PhotonMessageInfo info)

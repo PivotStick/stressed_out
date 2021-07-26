@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
@@ -16,7 +14,7 @@ namespace Player
         protected Rigidbody2D rbd;
         private Inputs inputs;
 
-        void Awake()
+        protected virtual void Awake()
         {
             rbd = GetComponent<Rigidbody2D>();
             inputs = new Inputs();
@@ -27,20 +25,13 @@ namespace Player
             rbd.velocity = inputs.Movements.Move.ReadValue<Vector2>() * moveSpeed;
         }
 
-        void OnEnable()
-        {
-            if (photonView.IsMine)
-                inputs.Enable();
-        }
+        void OnEnable() => SetEnabled(true);
+        void OnDisable() => SetEnabled(false);
 
-        void OnDisable()
+        public virtual void SetEnabled(bool enabled)
         {
-            inputs.Disable();
-        }
-
-        public virtual void DisableControls()
-        {
-            inputs.Disable();
+            if (enabled) inputs.Enable();
+            else inputs.Disable();
         }
     }
 }

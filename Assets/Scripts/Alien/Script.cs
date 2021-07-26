@@ -12,17 +12,10 @@ namespace Alien
 
     public class Script : Player.Script, IPunInstantiateMagicCallback
     {
-        [SerializeField] private Material unlitMat;
-
         private void Start()
         {
             if (!photonView.IsMine) return;
 
-            GetComponent<SpriteRenderer>().material = unlitMat;
-            Cam.Follower.target = gameObject;
-            var filter = Camera.main.gameObject.AddComponent<AudioLowPassFilter>();
-
-            filter.cutoffFrequency = 100;
         }
 
         public void OnPhotonInstantiate(PhotonMessageInfo info)

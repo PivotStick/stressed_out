@@ -11,7 +11,7 @@ namespace Audio
 
         public Scriptable settings;
         public GameObject follow;
-        public GameObject listener;
+        public GameObject Listener { get => Player.Main.local; }
 
         private AudioSource source;
         private AudioLowPassFilter filter;
@@ -27,13 +27,13 @@ namespace Audio
 
         private float FilterTarget
         {
-            get => Physics2D.Linecast(
+            get => Listener ? Physics2D.Linecast(
                 transform.position,
-                listener.transform.position,
+                Listener.transform.position,
                 walls
             ).collider == null
                 ? 22000
-                : 2000;
+                : 2000 : 0;
         }
 
         private void Awake()
@@ -42,7 +42,6 @@ namespace Audio
             filter = GetComponent<AudioLowPassFilter>();
             particles = GetComponentInChildren<ParticleSystem>();
 
-            listener = Player.Manager.Player;
             isAlien = Player.Manager.MyRole == Player.RoleID.Alien;
         }
 
@@ -54,16 +53,16 @@ namespace Audio
             if (!source.isPlaying && !particles.IsAlive())
                 Destroy(gameObject);
 
-            if (listener != null)
+            if (Listener && settings)
                 ResolveSpatial();
         }
 
         private void ResolveSpatial()
         {
             float maxDistance = settings.maxDistance * volume;
-            float distance = Vector2.Distance(transform.position, listener.transform.position);
+            float distance = Vector2.Distance(transform.position, Listener.transform.position);
             float distPercent = Mathf.Clamp01(1 - distance / maxDistance);
-            float horizontalDiff = transform.position.x - listener.transform.position.x;
+            float horizontalDiff = transform.position.x - Listener.transform.position.x;
 
             horizontalDiff = Mathf.Clamp(horizontalDiff / maxDistance, -1, 1);
 
@@ -135,6 +134,8 @@ namespace Audio
         {
             var datas = info.photonView.InstantiationData;
 
+            // Debug.Log(datas);
+
             var soundID = (ID)datas[0];
             var viewId = (int)datas[2];
             var soundIndex = (int)datas[5];
@@ -151,7 +152,7 @@ namespace Audio
 
             if (viewId == -1) return;
 
-            follow = Network.Manager.instance.GetView(viewId).gameObject;
+            follow = Network.Manager.instance.GetView(viewId)?.gameObject;
         }
 
 #if (UNITY_EDITOR)
@@ -162,8 +163,8 @@ namespace Audio
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireSphere(transform.position, maxDistance);
 
-            var dist = Vector2.Distance(transform.position, listener.transform.position);
-            var hit = Physics2D.Linecast(listener.transform.position, transform.position, walls);
+            var dist = Vector2.Distance(transform.position, Listener.transform.position);
+            var hit = Physics2D.Linecast(Listener.transform.position, transform.position, walls);
             var target = transform.position;
 
             Gizmos.color = Color.green;
@@ -175,7 +176,7 @@ namespace Audio
 
             if (dist > maxDistance) Gizmos.color = Color.grey;
 
-            Gizmos.DrawLine(listener.transform.position, target);
+            Gizmos.DrawLine(Listener.transform.position, target);
         }
 #endif
     }
