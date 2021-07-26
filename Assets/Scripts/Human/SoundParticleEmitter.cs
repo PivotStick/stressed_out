@@ -12,10 +12,12 @@ namespace Human
 
         void Start()
         {
-            StartCoroutine(SoundWave());
             var shape = particles.shape;
             shape.radius = 0.5f;
         } 
+
+        void OnEnable() => StartCoroutine(SoundWave());
+        void OnDisable() => StopCoroutine(SoundWave());
 
         void OnAudioFilterRead(float[] samples, int channels)
         {
@@ -28,9 +30,9 @@ namespace Human
 
         IEnumerator SoundWave()
         {
-            while (isActiveAndEnabled)
+            while (true)
             {
-                Emit();
+                if (particles) Emit();
                 yield return new WaitForSeconds(0.05f);
             }
         }
