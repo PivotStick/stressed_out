@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Photon.Voice.PUN;
-using Photon.Voice;
 
 namespace Human
 {
