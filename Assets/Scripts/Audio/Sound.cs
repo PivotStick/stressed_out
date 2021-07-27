@@ -18,12 +18,11 @@ namespace Audio
         private ParticleSystem particles = null;
 
         private float[] datas = new float[512];
-        private bool isAlien;
 
-        private float particleMultiplier;
-        private float speedMultiplier;
-        private float volume;
-        private int floorLevel;
+        public float particleMultiplier = 1;
+        public float speedMultiplier = 1;
+        public float volume = 1;
+        public int floorLevel = 1;
 
         private float FilterTarget
         {
@@ -41,8 +40,6 @@ namespace Audio
             source = GetComponent<AudioSource>();
             filter = GetComponent<AudioLowPassFilter>();
             particles = GetComponentInChildren<ParticleSystem>();
-
-            isAlien = Player.Manager.MyRole == Player.RoleID.Alien;
         }
 
         private void Update()
@@ -109,7 +106,7 @@ namespace Audio
             return volume;
         }
 
-        private void Initialize(int soundIndex)
+        public void Initialize(int soundIndex)
         {
             source.clip = settings.clips[soundIndex];
             source.loop = settings.loop;
@@ -133,8 +130,6 @@ namespace Audio
         public void OnPhotonInstantiate(PhotonMessageInfo info)
         {
             var datas = info.photonView.InstantiationData;
-
-            // Debug.Log(datas);
 
             var soundID = (ID)datas[0];
             var viewId = (int)datas[2];

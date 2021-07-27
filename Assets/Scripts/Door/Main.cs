@@ -10,8 +10,13 @@ namespace Door
 
         private Animator animator;
         private Collider2D trigger;
+        private bool touching = false;
 
-        public bool Open { set => animator.SetBool("open", value); }
+        public bool Open
+        {
+            get => animator.GetBool("open");
+            set => animator.SetBool("open", value);
+        }
 
         void Start()
         {
@@ -22,7 +27,23 @@ namespace Door
 
         void FixedUpdate()
         {
-            Open = trigger.IsTouchingLayers(triggeringLayers);
+            touching = trigger.IsTouchingLayers(triggeringLayers);
+            if (!Open && touching)
+            {
+                Open = true;
+                Audio.Manager.instance.PlayLocalAt(
+                    transform.position,
+                    Audio.ID.OpenDoor
+                );
+            }
+            else if (Open && !touching)
+            {
+                Open = false;
+                Audio.Manager.instance.PlayLocalAt(
+                    transform.position,
+                    Audio.ID.CloseDoor
+                );
+            }
         }
     }
 }

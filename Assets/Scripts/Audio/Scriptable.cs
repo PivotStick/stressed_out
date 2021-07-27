@@ -12,6 +12,8 @@ namespace Audio
         AlienBreath,
         AlienTail,
         AlienWarningBreath,
+        OpenDoor,
+        CloseDoor,
     }
 
     [CreateAssetMenu(fileName = "New Sound", menuName = "Scriptable Sound")]
@@ -35,5 +37,10 @@ namespace Audio
         public float maxDistance = 10f;
 
         public bool loop = false;
+
+        public int RandomIndex
+        {
+            get => Random.Range(0, clips.Length);
+        }
     }
 }

@@ -14,6 +14,17 @@ namespace Audio
         [SerializeField] private AudioSource bgSource;
         [SerializeField] private Scriptable[] sounds;
 
+        public Sound PlayLocalAt(
+            Vector2 position,
+            ID soundID
+        ) {
+            var sound = Instantiate(soundPrefab, position, Quaternion.identity);
+            sound.settings = Scriptable.GetById(soundID);
+            sound.Initialize(sound.settings.RandomIndex);
+
+            return sound;
+        }
+
         public void PlaySoundAt(
             Vector2 position,
             ID soundID,
