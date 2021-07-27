@@ -16,10 +16,16 @@ namespace Audio
 
         public Sound PlayLocalAt(
             Vector2 position,
-            ID soundID
+            ID soundID,
+            int floorLevel,
+            float speedMultiplier = 1,
+            float particleMultiplier = 1
         ) {
             var sound = Instantiate(soundPrefab, position, Quaternion.identity);
             sound.settings = Scriptable.GetById(soundID);
+            sound.floorLevel = floorLevel;
+            sound.speedMultiplier = speedMultiplier;
+            sound.particleMultiplier = particleMultiplier;
             sound.Initialize(sound.settings.RandomIndex);
 
             return sound;

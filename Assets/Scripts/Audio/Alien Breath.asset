@@ -20,9 +20,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b73749ec0463f314b94c946a0bdbdcb6, type: 3}
   - {fileID: 8300000, guid: c0d6bd9aaae507b4b942fef5a09d43f4, type: 3}
   sensivity: 0.015
-  collisionMask:
+  soundCollision:
     serializedVersion: 2
-    m_Bits: 192
-  alienDistance: 2
+    m_Bits: 1088
+  particleCollision:
+    serializedVersion: 2
+    m_Bits: 1216
+  alienDistance: 4
   maxDistance: 2
   loop: 0

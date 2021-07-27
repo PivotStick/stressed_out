@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5881634296385078385}
   - component: {fileID: 1895066504447203797}
   - component: {fileID: 367464729847443992}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: _Base_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,6 +48,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 136
   speed: 2.5
+  floorLevel: 2
+  debug: 0
 --- !u!61 &367464729847443992
 BoxCollider2D:
   m_ObjectHideFlags: 0

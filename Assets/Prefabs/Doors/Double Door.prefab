@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6215147045294491023}
   - component: {fileID: 8189748069492811294}
   - component: {fileID: 4650989350267579745}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.5, z: 0}
   m_ShapePathHash: 160822549
   m_Mesh: {fileID: 0}
-  m_InstanceId: 75878
+  m_InstanceId: 56774
 --- !u!1 &5996456169138964143
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 4817820019129969666}
   - component: {fileID: 4761257764950313255}
   - component: {fileID: 6772094874158387712}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -271,7 +271,7 @@ MonoBehaviour:
   - {x: -0.5, y: 0.5, z: 0}
   m_ShapePathHash: 160822549
   m_Mesh: {fileID: 0}
-  m_InstanceId: 75890
+  m_InstanceId: 56786
 --- !u!1 &7679242889130059358
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7795029004238523367}
   - component: {fileID: 2332092517133495242}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: Animation
   m_TagString: Untagged
   m_Icon: {fileID: 0}

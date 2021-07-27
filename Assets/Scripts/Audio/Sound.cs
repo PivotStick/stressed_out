@@ -7,8 +7,6 @@ namespace Audio
 {
     public class Sound : MonoBehaviourPun, IPunInstantiateMagicCallback
     {
-        [SerializeField] private LayerMask walls;
-
         public Scriptable settings;
         public GameObject follow;
         public GameObject Listener { get => Player.Main.local; }
@@ -22,14 +20,14 @@ namespace Audio
         public float particleMultiplier = 1;
         public float speedMultiplier = 1;
         public float volume = 1;
-        public int floorLevel = 1;
+        public int floorLevel = 0;
 
         private float FilterTarget
         {
             get => Listener ? Physics2D.Linecast(
                 transform.position,
                 Listener.transform.position,
-                walls
+                settings.soundCollision
             ).collider == null
                 ? 22000
                 : 2000 : 0;
@@ -72,13 +70,17 @@ namespace Audio
 
         private IEnumerator SoundWave()
         {
-            // Debug.Log("Sound Wave INIT");
             while (source.isPlaying)
             {
-                // Debug.Log("Sound is playing");
                 if (GetVolume() >= settings.sensivity) Emit();
                 yield return new WaitForSeconds(0.25f);
             }
+        }
+
+        private void Log(object message)
+        {
+            if (settings.id == ID.OpenDoor || settings.id == ID.CloseDoor)
+                Debug.Log(message);
         }
 
         private void Emit()
@@ -112,7 +114,7 @@ namespace Audio
             source.loop = settings.loop;
 
             var col = this.particles.collision;
-            col.collidesWith = settings.collisionMask;
+            col.collidesWith = settings.particleCollision;
 
             var sameFloor = Player.Manager.CurrentFloor == floorLevel;
 
@@ -159,7 +161,7 @@ namespace Audio
             Gizmos.DrawWireSphere(transform.position, maxDistance);
 
             var dist = Vector2.Distance(transform.position, Listener.transform.position);
-            var hit = Physics2D.Linecast(Listener.transform.position, transform.position, walls);
+            var hit = Physics2D.Linecast(Listener.transform.position, transform.position, settings.soundCollision);
             var target = transform.position;
 
             Gizmos.color = Color.green;
