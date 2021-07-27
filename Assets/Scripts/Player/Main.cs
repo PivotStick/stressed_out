@@ -8,6 +8,7 @@ namespace Player
     public class Main : MonoBehaviourPun
     {
         public static GameObject local;
+        public static Controller controller;
 
         void Start()
         {

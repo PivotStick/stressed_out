@@ -8,8 +8,6 @@ namespace Alien
     {
         [SerializeField] private Material unlitMat;
 
-        public static Controller controller;
-
         protected override void InitLocal()
         {
             controller = gameObject.AddComponent<Controller>();

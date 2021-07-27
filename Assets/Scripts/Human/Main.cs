@@ -11,8 +11,6 @@ namespace Human
         public LayerMask wallsMask;
         public ParticleSystem system;
 
-        public static Controller controller;
-
         public List<Component> components = new List<Component>();
 
         protected override void InitLocal()

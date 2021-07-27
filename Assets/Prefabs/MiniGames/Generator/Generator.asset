@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db7dc995a34c24aab941a7cc79989fdc, type: 3}
+  m_Name: Generator
+  m_EditorClassIdentifier: 
+  brokenSprite: {fileID: 7482667652216324306, guid: 7925d218a9c534ad2b3694da4526659a, type: 3}
+  repairedSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  miniGame: {fileID: 421554718798519357, guid: a1b161bc7f8374fa3a6057e7f0804c1b, type: 3}
