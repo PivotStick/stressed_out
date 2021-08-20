@@ -43,7 +43,7 @@ namespace Quest
         public void Finish()
         {
             finished?.Invoke();
-            Visible = true;
+            Visible = false;
         }
     }
 }

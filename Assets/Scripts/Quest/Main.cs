@@ -17,13 +17,14 @@ namespace Quest
         {
             sprite = GetComponent<SpriteRenderer>();
             sprite.sprite = settings.brokenSprite;
-            miniGame = Instantiate(settings.miniGame);
-            miniGame.gameObject.SetActive(false);
         }
 
         public void OpenQuest()
         {
             if (isFinished) return;
+            if (!miniGame)
+                miniGame = Instantiate(settings.miniGame);
+
             miniGame.Visible = true;
             miniGame.finished += OnFinished;
             miniGame.close += RemoveListeners;
@@ -44,8 +45,10 @@ namespace Quest
         public void Repair()
         {
             sprite.sprite = settings.repairedSprite;
+            GetComponent<Interactable.Interactable>().Remove();
             Destroy(miniGame.gameObject);
             isFinished = true;
+            Destroy(this);
         }
     }
 }

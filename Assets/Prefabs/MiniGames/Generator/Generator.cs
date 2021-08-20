@@ -88,7 +88,6 @@ namespace MiniGames
             if (number != currentNumber + 1)
             {
                 StartCoroutine(Fail());
-
                 return;
             }
 

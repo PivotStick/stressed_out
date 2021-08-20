@@ -51,6 +51,18 @@ namespace Interactable
             }
         }
 
+        public void Remove()
+        {
+            foreach (var field in fields)
+            {
+                Destroy(field.gameObject);
+            }
+
+            inputActions.Disable();
+            Destroy(this);
+            Destroy(GetComponent<Collider2D>());
+        }
+
         private void Awake()
         {
             var container = new GameObject("Fields");
