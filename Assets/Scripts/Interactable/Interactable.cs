@@ -11,6 +11,7 @@ namespace Interactable
     {
         public Vector2 position = new Vector2(2.5f, 0.75f);
         public Vector2 size = new Vector2(3, 1);
+        public LayerMask mask;
 
         [System.Serializable]
         public struct Action
@@ -105,7 +106,11 @@ namespace Interactable
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (!collider.GetComponent<Player.Script>().photonView.IsMine)
+            var inMask = mask == (mask | (1 << collider.gameObject.layer));
+            if (
+                !collider.GetComponent<Player.Script>().photonView.IsMine ||
+                !inMask
+            )
                 return;
 
             Selected = fields.Count / 2;

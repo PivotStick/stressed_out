@@ -565,6 +565,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2060504152240409668, guid: 7bcd4d929421df3469ae005362845eb4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2060504152289411861, guid: 7bcd4d929421df3469ae005362845eb4, type: 3}
       propertyPath: m_SceneBindings.Array.data[2].value
       value: 
@@ -679,6 +683,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2060504154099123014, guid: 7bcd4d929421df3469ae005362845eb4, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2060504154099123014, guid: 7bcd4d929421df3469ae005362845eb4, type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2060504154169588541, guid: 7bcd4d929421df3469ae005362845eb4, type: 3}
