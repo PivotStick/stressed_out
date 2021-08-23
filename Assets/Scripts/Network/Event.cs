@@ -84,7 +84,12 @@ namespace Network
 					aliveCount--;
 
 			if (aliveCount == 0)
-				StartCoroutine(TransitionManager.instance.GameOver());
+				GameOver();
+		}
+
+		public void GameOver()
+		{
+			StartCoroutine(TransitionManager.instance.GameOver());
 		}
 
 		private void DamagePlayer(object[] data)

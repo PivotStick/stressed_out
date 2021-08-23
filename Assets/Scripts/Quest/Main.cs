@@ -64,6 +64,9 @@ namespace Quest
                 Destroy(miniGame.gameObject);
             isFinished = true;
             Destroy(this);
+
+            if (MiniGame.count <= 0)
+                Network.Event.instance.GameOver();
         }
 
         void OnDestroy()

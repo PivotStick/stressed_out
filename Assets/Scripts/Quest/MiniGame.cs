@@ -7,6 +7,8 @@ namespace Quest
 {
     public class MiniGame : MonoBehaviour
     {
+        public static int count = 0;
+
         public delegate void OnClose();
         public delegate void OnFinished();
 
@@ -23,6 +25,7 @@ namespace Quest
             closeButton.onClick.AddListener(Close);
             gameAudio = GetComponent<AudioSource>();
             Network.Event.questRepaired += Finish;
+            count++;
         }
 
         public bool Visible
@@ -50,7 +53,8 @@ namespace Quest
 
         public void Finish(string id)
         {
-            if (this.id != id) return;;
+            if (this.id != id) return;
+            count--;
 
             finished?.Invoke();
             Visible = false;
