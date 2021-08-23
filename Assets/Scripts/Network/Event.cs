@@ -41,6 +41,7 @@ namespace Network
 
 		public static void TriggerEvent(ID eventId, object[] datas = null)
 		{
+			Debug.Log($"TriggerEvent: {eventId} with {datas}");
 			var options = new Photon.Realtime.RaiseEventOptions { Receivers = Photon.Realtime.ReceiverGroup.All };
 			PhotonNetwork.RaiseEvent((byte)eventId, datas, options, SendOptions.SendReliable);
 		}
@@ -59,6 +60,7 @@ namespace Network
 
 		private void QuestRepaired(string viewId)
 		{
+			Debug.Log($"Quest Repaired! {viewId}");
 			questRepaired?.Invoke(viewId);
 		}
 
