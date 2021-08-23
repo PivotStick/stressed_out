@@ -7,11 +7,21 @@ namespace Door
     {
         public LayerMask triggeringLayers;
         public float speed = 1f;
+        public int floorLevel = 1;
 
         private Animator animator;
         private Collider2D trigger;
 
-        public bool Open { set => animator.SetBool("open", value); }
+        public bool Open
+        {
+            get => animator.GetBool("open");
+            set 
+            {
+                if (Open == value) return;
+                animator.SetBool("open", value);
+                PlaySound(value);
+            }
+        }
 
         void Start()
         {
@@ -23,6 +33,17 @@ namespace Door
         void FixedUpdate()
         {
             Open = trigger.IsTouchingLayers(triggeringLayers);
+        }
+
+        private void PlaySound(bool open)
+        {
+            Audio.Manager.instance.PlayLocalAt(
+                transform.position,
+                open ? Audio.ID.OpenDoor : Audio.ID.CloseDoor,
+                floorLevel,
+                speedMultiplier: 2,
+                particleMultiplier: 2
+            );
         }
     }
 }

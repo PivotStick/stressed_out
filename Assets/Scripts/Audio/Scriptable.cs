@@ -12,6 +12,8 @@ namespace Audio
         AlienBreath,
         AlienTail,
         AlienWarningBreath,
+        OpenDoor,
+        CloseDoor,
     }
 
     [CreateAssetMenu(fileName = "New Sound", menuName = "Scriptable Sound")]
@@ -29,11 +31,17 @@ namespace Audio
         public ID id;
         public AudioClip[] clips;
         public float sensivity = 0;
-        public LayerMask collisionMask;
+        public LayerMask soundCollision;
+        public LayerMask particleCollision;
 
         public float alienDistance = 2;
         public float maxDistance = 10f;
 
         public bool loop = false;
+
+        public int RandomIndex
+        {
+            get => Random.Range(0, clips.Length);
+        }
     }
 }

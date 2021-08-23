@@ -280,7 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallsMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1088
   system: {fileID: 2206500524803652855, guid: c53e1f708a88a4eab9bf398a8b60b48e, type: 3}
   components: []
 --- !u!114 &8802543579721262713

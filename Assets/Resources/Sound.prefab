@@ -48,11 +48,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87e59325d8ce5104b9068551e6a9efe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walls:
-    serializedVersion: 2
-    m_Bits: 64
   settings: {fileID: 0}
   follow: {fileID: 0}
+  particleMultiplier: 1
+  speedMultiplier: 1
+  volume: 1
+  floorLevel: 1
 --- !u!82 &4176366793057008864
 AudioSource:
   m_ObjectHideFlags: 0
@@ -176,7 +177,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

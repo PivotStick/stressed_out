@@ -41,6 +41,7 @@ namespace Interactable
             text = gameObject.AddComponent<TextMeshPro>();
 
             text.verticalAlignment = VerticalAlignmentOptions.Middle;
+            text.sortingLayerID = SortingLayer.NameToID("UI");
             text.fontSize = 1;
             Selected = false;
         }
