@@ -41,6 +41,12 @@ namespace Quest
             Repair();
         }
 
+        void OnFinished(string id)
+        {
+            if (this.id != id) return;
+            OnFinished();
+        }
+
         void RemoveListeners()
         {
             miniGame.finished -= OnFinished;
