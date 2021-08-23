@@ -50,6 +50,8 @@ namespace Quest
 
         void RemoveListeners()
         {
+            if (!miniGame) return;
+
             miniGame.finished -= OnFinished;
             miniGame.close -= RemoveListeners;
         }
@@ -65,7 +67,6 @@ namespace Quest
 
         void OnDestroy()
         {
-            Debug.Log("destroyed :(");
             Network.Event.questRepaired -= OnFinished;
         }
     }
