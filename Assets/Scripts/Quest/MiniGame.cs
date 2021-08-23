@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Photon.Pun;
 
 namespace Quest
 {
-    public class MiniGame : MonoBehaviour
+    public class MiniGame : MonoBehaviourPun
     {
         public delegate void OnClose();
         public delegate void OnFinished();
@@ -22,6 +22,7 @@ namespace Quest
         {
             closeButton.onClick.AddListener(Close);
             gameAudio = GetComponent<AudioSource>();
+            Network.Event.questRepaired += Finish;
         }
 
         public bool Visible
@@ -42,8 +43,22 @@ namespace Quest
 
         public void Finish()
         {
+            Network.Event.TriggerEvent(Network.Event.ID.QUEST_REPAIRED, new object[] {
+                photonView.ViewID
+            });
+        }
+
+        public void Finish(int viewId)
+        {
+            if (photonView.ViewID != viewId) return;;
+
             finished?.Invoke();
             Visible = false;
+        }
+
+        void OnDestroy()
+        {
+            Network.Event.questRepaired -= Finish;
         }
     }
 }

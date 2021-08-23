@@ -14,13 +14,16 @@ namespace Network
 			DAMAGE_PLAYER,
 			PLAYER_DIED,
 			PLAYER_CHANGED_FLOOR,
+			QUEST_REPAIRED,
 		}
 
 		public static Event instance = null;
 
 		public delegate void OnFloorChanged(Photon.Realtime.Player player);
+		public delegate void OnQuestRepaired(int viewId);
 
 		public static event OnFloorChanged floorChanged;
+		public static event OnQuestRepaired questRepaired;
 
 		private void OnEnable() => PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
 		private void OnDisable() => PhotonNetwork.NetworkingClient.EventReceived -= OnEvent;
@@ -50,7 +53,13 @@ namespace Network
 				case ID.DAMAGE_PLAYER: DamagePlayer((object[])data.CustomData); break;
 				case ID.PLAYER_DIED: PlayerDied(); break;
 				case ID.PLAYER_CHANGED_FLOOR: FloorChanged(((object[])data.CustomData)[0]); break;
+				case ID.QUEST_REPAIRED: QuestRepaired((int)((object[])data.CustomData)[0]); break;
 			}
+		}
+
+		private void QuestRepaired(int viewId)
+		{
+			questRepaired?.Invoke(viewId);
 		}
 
 		private void FloorChanged(object userId)
@@ -58,13 +67,11 @@ namespace Network
 			var players = PhotonNetwork.PlayerList;
 
 			foreach (var player in players)
-			{
 				if (player.UserId == (string)userId)
 				{
 					floorChanged?.Invoke(player);
 					break;
 				}
-			}
 		}
 
 		private void PlayerDied()
