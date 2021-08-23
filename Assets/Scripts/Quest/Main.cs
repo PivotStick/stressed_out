@@ -60,7 +60,8 @@ namespace Quest
         {
             sprite.sprite = settings.repairedSprite;
             GetComponent<Interactable.Interactable>().Remove();
-            Destroy(miniGame.gameObject);
+            if (miniGame)
+                Destroy(miniGame.gameObject);
             isFinished = true;
             Destroy(this);
         }
