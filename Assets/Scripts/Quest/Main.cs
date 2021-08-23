@@ -7,6 +7,8 @@ namespace Quest
     public class Main : MonoBehaviour
     {
         public Settings settings;
+        public string id;
+
         private MiniGame miniGame;
         private bool isFinished = false;
         public bool IsFinished { get => isFinished; }
@@ -23,7 +25,10 @@ namespace Quest
         {
             if (isFinished) return;
             if (!miniGame)
+            {
                 miniGame = Instantiate(settings.miniGame);
+                miniGame.id = id;
+            }
 
             miniGame.Visible = true;
             miniGame.finished += OnFinished;

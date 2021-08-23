@@ -20,7 +20,7 @@ namespace Network
 		public static Event instance = null;
 
 		public delegate void OnFloorChanged(Photon.Realtime.Player player);
-		public delegate void OnQuestRepaired(int viewId);
+		public delegate void OnQuestRepaired(string viewId);
 
 		public static event OnFloorChanged floorChanged;
 		public static event OnQuestRepaired questRepaired;
@@ -53,11 +53,11 @@ namespace Network
 				case ID.DAMAGE_PLAYER: DamagePlayer((object[])data.CustomData); break;
 				case ID.PLAYER_DIED: PlayerDied(); break;
 				case ID.PLAYER_CHANGED_FLOOR: FloorChanged(((object[])data.CustomData)[0]); break;
-				case ID.QUEST_REPAIRED: QuestRepaired((int)((object[])data.CustomData)[0]); break;
+				case ID.QUEST_REPAIRED: QuestRepaired((string)((object[])data.CustomData)[0]); break;
 			}
 		}
 
-		private void QuestRepaired(int viewId)
+		private void QuestRepaired(string viewId)
 		{
 			questRepaired?.Invoke(viewId);
 		}
