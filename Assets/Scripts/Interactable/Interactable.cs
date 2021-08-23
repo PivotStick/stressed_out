@@ -120,6 +120,7 @@ namespace Interactable
 
         private void OnTriggerExit2D(Collider2D collider)
         {
+            if (trigger.IsTouchingLayers(mask)) return;
             Active = false;
             inputActions.Disable();
         }

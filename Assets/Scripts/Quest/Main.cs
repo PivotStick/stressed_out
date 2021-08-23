@@ -68,7 +68,7 @@ namespace Quest
             isFinished = true;
             Destroy(this);
 
-            if (--count <= 0)
+            if (--count == 0)
                 Network.Event.instance.GameOver();
         }
 
