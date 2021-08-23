@@ -6,6 +6,8 @@ namespace Quest
 {
     public class Main : MonoBehaviour
     {
+        public static int count = 0;
+
         public Settings settings;
         public string id;
 
@@ -20,6 +22,7 @@ namespace Quest
             sprite = GetComponent<SpriteRenderer>();
             sprite.sprite = settings.brokenSprite;
             Network.Event.questRepaired += OnFinished;
+            count++;
         }
 
         public void OpenQuest()
@@ -65,7 +68,7 @@ namespace Quest
             isFinished = true;
             Destroy(this);
 
-            if (MiniGame.count <= 0)
+            if (--count <= 0)
                 Network.Event.instance.GameOver();
         }
 
