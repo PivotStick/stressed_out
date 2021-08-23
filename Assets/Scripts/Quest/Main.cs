@@ -19,6 +19,7 @@ namespace Quest
         {
             sprite = GetComponent<SpriteRenderer>();
             sprite.sprite = settings.brokenSprite;
+            Network.Event.questRepaired += OnFinished;
         }
 
         public void OpenQuest()
@@ -60,6 +61,12 @@ namespace Quest
             Destroy(miniGame.gameObject);
             isFinished = true;
             Destroy(this);
+        }
+
+        void OnDestroy()
+        {
+            Debug.Log("destroyed :(");
+            Network.Event.questRepaired -= OnFinished;
         }
     }
 }
