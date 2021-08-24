@@ -50,7 +50,7 @@ namespace Network
 
 		public void OnEvent(EventData data)
 		{
-			var customData = (object[])data.CustomData;
+			object[] customData = (object[])(data.CustomData ?? new object[] {});
 			switch ((ID)data.Code)
 			{
 				case ID.LAUNCH_GAME: LaunchGame(); break;
