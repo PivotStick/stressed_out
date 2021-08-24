@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
 
 namespace Human
 {
-    public class Corpse : MonoBehaviour
+    public class Corpse : MonoBehaviourPun, IPunOwnershipCallbacks
     {
         public bool infectionStarted = false;
 
@@ -43,11 +44,11 @@ namespace Human
         void OnGrab(InputAction.CallbackContext _) => OnGrab();
         void OnGrab()
         {
+            photonView.RequestOwnership();
             alien = Physics2D.OverlapBox(gameObject.transform.position, new Vector2(1.5f, 1.5f), 0).GetComponent<Alien.Local>();
             if (!alien) return;
 
             alien.isGrabbing = true;
-
             joint.connectedBody = alien.GetComponent<Rigidbody2D>();
             joint.enabled = true;
         }
@@ -108,6 +109,19 @@ namespace Human
             {
                 blood.IsDragging = false;
             }
+        }
+
+        public void OnOwnershipRequest(PhotonView targetView, Photon.Realtime.Player requestingPlayer)
+        {
+            targetView.TransferOwnership(requestingPlayer);
+        }
+
+        public void OnOwnershipTransfered(PhotonView targetView, Photon.Realtime.Player previousOwner)
+        {
+        }
+
+        public void OnOwnershipTransferFailed(PhotonView targetView, Photon.Realtime.Player senderOfFailedRequest)
+        {
         }
     }
 }
