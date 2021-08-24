@@ -7,12 +7,13 @@ namespace Player
     public class Controller : MonoBehaviourPun
     {
         [Header("Stats")]
-		[SerializeField] protected float moveSpeed = 1.5f;
-		[SerializeField] protected float minSpeed = 0.75f;
-		[SerializeField] protected float maxSpeed = 2.5f;
+		public float moveSpeed = 1.5f;
+		public float minSpeed = 0.75f;
+		public float maxSpeed = 2.5f;
 
         protected Rigidbody2D rbd;
         private Inputs inputs;
+
 
         protected virtual void Awake()
         {

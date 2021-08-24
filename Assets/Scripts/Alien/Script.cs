@@ -12,12 +12,6 @@ namespace Alien
 
     public class Script : Player.Script, IPunInstantiateMagicCallback
     {
-        private void Start()
-        {
-            if (!photonView.IsMine) return;
-
-        }
-
         public void OnPhotonInstantiate(PhotonMessageInfo info)
         {
             var playerName = (string)info.photonView.InstantiationData[0];

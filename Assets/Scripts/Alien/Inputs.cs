@@ -35,6 +35,14 @@ namespace Alien
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Grab"",
+                    ""type"": ""Button"",
+                    ""id"": ""62391396-4608-4407-ae25-4c75385ad02b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -158,6 +166,17 @@ namespace Alien
                     ""action"": ""Speed"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7ca70464-179f-473c-8df8-b497ab4bcc8c"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -241,6 +260,7 @@ namespace Alien
             m_Movements = asset.FindActionMap("Movements", throwIfNotFound: true);
             m_Movements_Move = m_Movements.FindAction("Move", throwIfNotFound: true);
             m_Movements_Speed = m_Movements.FindAction("Speed", throwIfNotFound: true);
+            m_Movements_Grab = m_Movements.FindAction("Grab", throwIfNotFound: true);
             // Sounds
             m_Sounds = asset.FindActionMap("Sounds", throwIfNotFound: true);
             m_Sounds_Roar = m_Sounds.FindAction("Roar", throwIfNotFound: true);
@@ -299,12 +319,14 @@ namespace Alien
         private IMovementsActions m_MovementsActionsCallbackInterface;
         private readonly InputAction m_Movements_Move;
         private readonly InputAction m_Movements_Speed;
+        private readonly InputAction m_Movements_Grab;
         public struct MovementsActions
         {
             private @Inputs m_Wrapper;
             public MovementsActions(@Inputs wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Movements_Move;
             public InputAction @Speed => m_Wrapper.m_Movements_Speed;
+            public InputAction @Grab => m_Wrapper.m_Movements_Grab;
             public InputActionMap Get() { return m_Wrapper.m_Movements; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -320,6 +342,9 @@ namespace Alien
                     @Speed.started -= m_Wrapper.m_MovementsActionsCallbackInterface.OnSpeed;
                     @Speed.performed -= m_Wrapper.m_MovementsActionsCallbackInterface.OnSpeed;
                     @Speed.canceled -= m_Wrapper.m_MovementsActionsCallbackInterface.OnSpeed;
+                    @Grab.started -= m_Wrapper.m_MovementsActionsCallbackInterface.OnGrab;
+                    @Grab.performed -= m_Wrapper.m_MovementsActionsCallbackInterface.OnGrab;
+                    @Grab.canceled -= m_Wrapper.m_MovementsActionsCallbackInterface.OnGrab;
                 }
                 m_Wrapper.m_MovementsActionsCallbackInterface = instance;
                 if (instance != null)
@@ -330,6 +355,9 @@ namespace Alien
                     @Speed.started += instance.OnSpeed;
                     @Speed.performed += instance.OnSpeed;
                     @Speed.canceled += instance.OnSpeed;
+                    @Grab.started += instance.OnGrab;
+                    @Grab.performed += instance.OnGrab;
+                    @Grab.canceled += instance.OnGrab;
                 }
             }
         }
@@ -412,6 +440,7 @@ namespace Alien
         {
             void OnMove(InputAction.CallbackContext context);
             void OnSpeed(InputAction.CallbackContext context);
+            void OnGrab(InputAction.CallbackContext context);
         }
         public interface ISoundsActions
         {

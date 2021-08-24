@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 using ExitGames.Client.Photon;
 
 namespace Network
@@ -39,9 +40,9 @@ namespace Network
 			}
 		}
 
-		public static void TriggerEvent(ID eventId, object[] datas = null)
+		public static void TriggerEvent(ID eventId, object[] datas = null, ReceiverGroup receivers = ReceiverGroup.All)
 		{
-			var options = new Photon.Realtime.RaiseEventOptions { Receivers = Photon.Realtime.ReceiverGroup.All };
+			var options = new RaiseEventOptions { Receivers = receivers };
 			PhotonNetwork.RaiseEvent((byte)eventId, datas, options, SendOptions.SendReliable);
 		}
 

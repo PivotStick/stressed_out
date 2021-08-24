@@ -90,7 +90,6 @@ namespace Alien
 
         private IEnumerator Attack(float angle)
         {
-
             attack.gameObject.SetActive(true);
             attack.gameObject.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
             yield return new WaitForSeconds(.5f);

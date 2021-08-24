@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
 
 namespace Human
 {
 	public class Script : Player.Script, IPunInstantiateMagicCallback
 	{
 		[SerializeField] private GameObject pointLight;
-		[SerializeField] private ParticleSystem blood;
+		[SerializeField] private Blood blood;
 		[SerializeField] private Material unlit;
 		[SerializeField] private Material lit;
 		[SerializeField] private GameObject ghostPrefab;
@@ -25,6 +22,7 @@ namespace Human
 
 		public void Start()
 		{
+			blood = GetComponentInChildren<Blood>();
 			mainScript = GetComponent<Main>();
 			pointLight.SetActive(photonView.IsMine);
 
@@ -38,16 +36,14 @@ namespace Human
 		public override void Damage(float amount)
 		{
 			base.Damage(amount);
-			blood.Emit((int)(amount / 3));
+			blood.system.Emit((int)(amount / 3));
 		}
 
 		public override void Die()
 		{
 			base.Die();
 
-			var main = blood.main;
-			main.startLifetime = 25;
-			blood.Emit(35);
+			blood.system.Emit(35);
 
 			if (photonView.IsMine)
 			{
@@ -60,6 +56,7 @@ namespace Human
 			}
 
 			mainScript.DestroyComponents();
+			gameObject.AddComponent<Corpse>();
 			Network.VoiceRecorder.Mute();
 		}
 
