@@ -84,10 +84,11 @@ GameObject:
   - component: {fileID: 1180620970069651109}
   - component: {fileID: 345113287960832857}
   - component: {fileID: 6160655311968151712}
-  - component: {fileID: 8993045766467412451}
   - component: {fileID: 8558503359385690229}
   - component: {fileID: 9150953096533406984}
   - component: {fileID: 4004659594495449040}
+  - component: {fileID: 7509951729288428794}
+  - component: {fileID: 8802543579721262713}
   m_Layer: 7
   m_Name: Human
   m_TagString: Player
@@ -200,21 +201,6 @@ MonoBehaviour:
   unlit: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   lit: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   ghostPrefab: {fileID: 3587958832229040881, guid: 5db0233bb4d728340b1c72c9a40b4e36, type: 3}
---- !u!114 &8993045766467412451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1180620970069651108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c530cce6c17fc4f47aee921f0acdf38b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 1.5
-  minSpeed: 0.75
-  maxSpeed: 2
 --- !u!114 &8558503359385690229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,6 +266,42 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &7509951729288428794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180620970069651108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4608b376fd26447209fa0f0e5d239bab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallsMask:
+    serializedVersion: 2
+    m_Bits: 1088
+  system: {fileID: 2206500524803652855, guid: c53e1f708a88a4eab9bf398a8b60b48e, type: 3}
+  components: []
+--- !u!114 &8802543579721262713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180620970069651108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 126494ae2a10a34499272ed97a6c9f5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logLevel: 0
+  ignoreGlobalLogLevel: 0
+  recorderInUse: {fileID: 0}
+  speakerInUse: {fileID: 0}
+  AutoCreateRecorderIfNotFound: 0
+  UsePrimaryRecorder: 1
+  SetupDebugSpeaker: 0
 --- !u!1 &4741861803969136134
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,7 +1162,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
   EmissionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2
@@ -1251,7 +1273,7 @@ ParticleSystem:
     m_BurstCount: 0
     m_Bursts: []
   SizeModule:
-    enabled: 1
+    enabled: 0
     curve:
       serializedVersion: 2
       minMaxState: 1
@@ -1575,7 +1597,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 0
+    enabled: 1
     gradient:
       serializedVersion: 2
       minMaxState: 1
@@ -1584,7 +1606,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 1, g: 1, b: 1, a: 0}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}

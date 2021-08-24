@@ -12,21 +12,10 @@ namespace Player
 		public static Photon.Realtime.Player[] Aliens { get => PlayersOfRole(RoleID.Alien); }
 		public static Photon.Realtime.Player Me { get => PhotonNetwork.LocalPlayer; }
 		public static RoleID MyRole { get => GetProperty<RoleID>("Role"); }
-
-		public static GameObject Player
-		{
-			get
-			{
-				foreach (var o in GameObject.FindObjectsOfType<PhotonView>())
-					if (o.IsMine && o.gameObject.CompareTag("Player")) return o.gameObject;
-
-				return null;
-			}
-		}
+		public static int CurrentFloor { get => GetProperty<int>("currentFloor"); }
 
 		public static void SetProperty(string key, object value)
 		{
-
 			var props = new ExitGames.Client.Photon.Hashtable();
 			props.Add(key, value);
 			Me.SetCustomProperties(props);

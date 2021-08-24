@@ -11,6 +11,7 @@ namespace Interactable
     {
         public Vector2 position = new Vector2(2.5f, 0.75f);
         public Vector2 size = new Vector2(3, 1);
+        public LayerMask mask;
 
         [System.Serializable]
         public struct Action
@@ -49,6 +50,18 @@ namespace Interactable
                 for (int i = 0; i < fields.Count; i++)
                     fields[i].Selected = selectedIndex == i;
             }
+        }
+
+        public void Remove()
+        {
+            foreach (var field in fields)
+            {
+                Destroy(field.gameObject);
+            }
+
+            inputActions.Disable();
+            Destroy(this);
+            Destroy(GetComponent<Collider2D>());
         }
 
         private void Awake()
@@ -93,7 +106,11 @@ namespace Interactable
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (!collider.GetComponent<Player.Script>().photonView.IsMine)
+            var inMask = mask == (mask | (1 << collider.gameObject.layer));
+            if (
+                !collider.GetComponent<Player.Script>().photonView.IsMine ||
+                !inMask
+            )
                 return;
 
             Selected = fields.Count / 2;
@@ -103,6 +120,7 @@ namespace Interactable
 
         private void OnTriggerExit2D(Collider2D collider)
         {
+            if (trigger.IsTouchingLayers(mask)) return;
             Active = false;
             inputActions.Disable();
         }

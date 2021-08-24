@@ -14,7 +14,7 @@ namespace Human
 		[SerializeField] private Material lit;
 		[SerializeField] private GameObject ghostPrefab;
 
-		private Controller controller;
+		private Main mainScript;
 
 		private void SetParticleMaterial(Material material)
 		{
@@ -25,15 +25,14 @@ namespace Human
 
 		public void Start()
 		{
-			Player.Manager.InitProperties();
+			mainScript = GetComponent<Main>();
 			pointLight.SetActive(photonView.IsMine);
-			SetParticleMaterial(lit);
-			if (Player.Manager.MyRole == Player.RoleID.Alien)
-				SetParticleMaterial(unlit);
 
-			health = maxHealth;
-			controller = GetComponent<Controller>();
-			Network.Event.floorChanged += OnPlayerChangedFloor;
+			SetParticleMaterial(
+				Player.Manager.MyRole == Player.RoleID.Alien
+					? unlit
+					: lit
+			);
 		}
 
 		public override void Damage(float amount)
@@ -49,7 +48,6 @@ namespace Human
 			var main = blood.main;
 			main.startLifetime = 25;
 			blood.Emit(35);
-			controller.DisableControls();
 
 			if (photonView.IsMine)
 			{
@@ -60,13 +58,9 @@ namespace Human
 
 				Player.Manager.SetProperty("isDead", true);
 			}
-		}
 
-		public void OnPlayerChangedFloor(Photon.Realtime.Player player)
-		{
-			int myFloor = Player.Manager.GetProperty<int>("currentFloor");
-			int otherFloor = (int)photonView.Owner.CustomProperties["currentFloor"];
-			gameObject.SetActive(myFloor == otherFloor);
+			mainScript.DestroyComponents();
+			Network.VoiceRecorder.Mute();
 		}
 
 		public void OnPhotonInstantiate(PhotonMessageInfo info)

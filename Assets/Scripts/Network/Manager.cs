@@ -6,12 +6,14 @@ using UnityEngine.SceneManagement;
 
 using Photon.Pun;
 using Photon.Realtime;
+using Photon.Voice.PUN;
 
 namespace Network
 {
 	public class Manager : MonoBehaviourPunCallbacks
 	{
 		public const int MAX_PLAYERS = 10;
+		public GameObject speaker;
 
 		public static Manager instance = null;
 
@@ -85,6 +87,7 @@ namespace Network
 			yield return new WaitForSeconds(3);
 			SceneManager.LoadScene(1);
 			TransitionManager.instance.FadeOut();
+			CanvasManager.instance.gameObject.SetActive(false);
 		}
 
 		public PhotonView GetView(int viewId)
@@ -100,9 +103,16 @@ namespace Network
 			return PhotonNetwork.IsMasterClient;
 		}
 
+		public void InstantiateSpeaker()
+		{
+			VoiceRecorder.UnMute();
+			PhotonNetwork.Instantiate(speaker.name, Vector3.zero, Quaternion.identity);
+		}
+
 		public override void OnJoinedRoom()
 		{
 			InvokeRoomJoined();
+			InstantiateSpeaker();
 		}
 
 		public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)

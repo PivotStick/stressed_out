@@ -5,11 +5,17 @@ using Photon.Pun;
 
 namespace Alien
 {
-    public class AttackCollisions : MonoBehaviour
+    public class AttackCollisions : MonoBehaviourPun
     {
+        void Awake()
+        {
+            if (!photonView.IsMine)
+                Destroy(gameObject);
+        }
+
         void OnTriggerEnter2D(Collider2D col)
         {
-            if (!col.gameObject.CompareTag("Player")) return;
+            if (!col.GetComponent<Human.Main>()) return;
             var damage = Random.Range(10f, 30f);
 
             Network.Event.TriggerEvent(Network.Event.ID.DAMAGE_PLAYER, new object[] {

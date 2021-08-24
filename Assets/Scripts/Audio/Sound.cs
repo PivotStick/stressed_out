@@ -7,32 +7,30 @@ namespace Audio
 {
     public class Sound : MonoBehaviourPun, IPunInstantiateMagicCallback
     {
-        [SerializeField] private LayerMask walls;
-
         public Scriptable settings;
         public GameObject follow;
-        public GameObject listener;
+        public GameObject Listener { get => Player.Main.local; }
 
         private AudioSource source;
         private AudioLowPassFilter filter;
         private ParticleSystem particles = null;
 
         private float[] datas = new float[512];
-        private bool isAlien;
 
-        private float particleMultiplier;
-        private float speedMultiplier;
-        private float volume;
+        public float particleMultiplier = 1;
+        public float speedMultiplier = 1;
+        public float volume = 1;
+        public int floorLevel = 0;
 
         private float FilterTarget
         {
-            get => Physics2D.Linecast(
+            get => Listener ? Physics2D.Linecast(
                 transform.position,
-                listener.transform.position,
-                walls
+                Listener.transform.position,
+                settings.soundCollision
             ).collider == null
                 ? 22000
-                : 2000;
+                : 2000 : 0;
         }
 
         private void Awake()
@@ -40,9 +38,6 @@ namespace Audio
             source = GetComponent<AudioSource>();
             filter = GetComponent<AudioLowPassFilter>();
             particles = GetComponentInChildren<ParticleSystem>();
-
-            listener = Player.Manager.Player;
-            isAlien = Player.Manager.MyRole == Player.RoleID.Alien;
         }
 
         private void Update()
@@ -53,34 +48,39 @@ namespace Audio
             if (!source.isPlaying && !particles.IsAlive())
                 Destroy(gameObject);
 
-            if (listener != null)
+            if (Listener && settings)
                 ResolveSpatial();
         }
 
         private void ResolveSpatial()
         {
             float maxDistance = settings.maxDistance * volume;
-            float distance = Vector2.Distance(transform.position, listener.transform.position);
+            float distance = Vector2.Distance(transform.position, Listener.transform.position);
             float distPercent = Mathf.Clamp01(1 - distance / maxDistance);
-            float horizontalDiff = transform.position.x - listener.transform.position.x;
+            float horizontalDiff = transform.position.x - Listener.transform.position.x;
 
             horizontalDiff = Mathf.Clamp(horizontalDiff / maxDistance, -1, 1);
 
             source.volume = distPercent;
             source.panStereo = horizontalDiff;
 
-            filter.cutoffFrequency += (int)((FilterTarget - filter.cutoffFrequency) * 0.2);
+            if (Player.Manager.CurrentFloor == floorLevel)
+                filter.cutoffFrequency += (int)((FilterTarget - filter.cutoffFrequency) * 0.2);
         }
 
         private IEnumerator SoundWave()
         {
-            // Debug.Log("Sound Wave INIT");
             while (source.isPlaying)
             {
-                // Debug.Log("Sound is playing");
                 if (GetVolume() >= settings.sensivity) Emit();
                 yield return new WaitForSeconds(0.25f);
             }
+        }
+
+        private void Log(object message)
+        {
+            if (settings.id == ID.OpenDoor || settings.id == ID.CloseDoor)
+                Debug.Log(message);
         }
 
         private void Emit()
@@ -108,17 +108,25 @@ namespace Audio
             return volume;
         }
 
-        private void Initialize(int soundIndex)
+        public void Initialize(int soundIndex)
         {
             source.clip = settings.clips[soundIndex];
             source.loop = settings.loop;
 
             var col = this.particles.collision;
-            col.collidesWith = settings.collisionMask;
+            col.collidesWith = settings.particleCollision;
+
+            var sameFloor = Player.Manager.CurrentFloor == floorLevel;
+
+            if (!sameFloor)
+            {
+                var floorDiff = floorLevel - Player.Manager.CurrentFloor;
+                filter.cutoffFrequency = 900 / Mathf.Abs(floorDiff);
+            }
 
             source.Play();
 
-            if (Player.Manager.MyRole == Player.RoleID.Alien) StartCoroutine(SoundWave());
+            if (sameFloor && Player.Manager.MyRole == Player.RoleID.Alien) StartCoroutine(SoundWave());
         }
 
         public void OnPhotonInstantiate(PhotonMessageInfo info)
@@ -132,6 +140,7 @@ namespace Audio
             volume = Mathf.Clamp01((float)datas[1]);
             particleMultiplier = (float)datas[3];
             speedMultiplier = (float)datas[4];
+            floorLevel = (int)datas[6];
             settings = Scriptable.GetById(soundID);
 
             filter.cutoffFrequency = FilterTarget;
@@ -140,7 +149,7 @@ namespace Audio
 
             if (viewId == -1) return;
 
-            follow = Network.Manager.instance.GetView(viewId).gameObject;
+            follow = Network.Manager.instance.GetView(viewId)?.gameObject;
         }
 
 #if (UNITY_EDITOR)
@@ -151,8 +160,8 @@ namespace Audio
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireSphere(transform.position, maxDistance);
 
-            var dist = Vector2.Distance(transform.position, listener.transform.position);
-            var hit = Physics2D.Linecast(listener.transform.position, transform.position, walls);
+            var dist = Vector2.Distance(transform.position, Listener.transform.position);
+            var hit = Physics2D.Linecast(Listener.transform.position, transform.position, settings.soundCollision);
             var target = transform.position;
 
             Gizmos.color = Color.green;
@@ -164,7 +173,7 @@ namespace Audio
 
             if (dist > maxDistance) Gizmos.color = Color.grey;
 
-            Gizmos.DrawLine(listener.transform.position, target);
+            Gizmos.DrawLine(Listener.transform.position, target);
         }
 #endif
     }

@@ -4,28 +4,26 @@ namespace Human
 {
 	public class Controller : Player.Controller
 	{
-		private Inputs inputs;
 		private float stepTimer = 0;
+		private Inputs inputs;
 
-		void Start()
-		{
+        protected override void Awake()
+        {
+            base.Awake();
+
 			moveSpeed = 1.5f;
 			minSpeed = 0.75f;
 			maxSpeed = 2.5f;
 
 			inputs = new Inputs();
-			if (photonView.IsMine)
-			{
-				inputs.Enable();
 
-				Cam.Follower.target = gameObject;
+			Cam.Follower.target = gameObject;
 
-				inputs.Movements.Sprint.performed += _ => SetSpeed(maxSpeed);
-				inputs.Movements.Walk.performed += _ => SetSpeed(minSpeed);
+			inputs.Movements.Sprint.performed += _ => SetSpeed(maxSpeed);
+			inputs.Movements.Walk.performed += _ => SetSpeed(minSpeed);
 
-				inputs.Movements.Sprint.canceled += _ => SetSpeed();
-				inputs.Movements.Walk.canceled += _ => SetSpeed();
-			}
+			inputs.Movements.Sprint.canceled += _ => SetSpeed();
+			inputs.Movements.Walk.canceled += _ => SetSpeed();
 		}
 
 		void SetSpeed(float speed = 1.5f)
@@ -35,8 +33,6 @@ namespace Human
 
 		void Update()
 		{
-			if (!photonView.IsMine) return;
-
 			if (rbd.velocity.magnitude > 0)
 				Step();
 		}
@@ -51,6 +47,7 @@ namespace Human
 			Audio.Manager.instance.PlaySoundAt(
 				transform.position,
 				Audio.ID.HumanStep,
+				Player.Manager.CurrentFloor,
 
 				volume: percent,
 				particleMultiplier: percent * 10,
@@ -58,12 +55,12 @@ namespace Human
 			);
 		}
 
-		private void OnDisable() => inputs.Disable();
+		public override void SetEnabled(bool enabled)
+		{
+			base.SetEnabled(enabled);
 
-        public override void DisableControls()
-        {
-			base.DisableControls();
-			inputs.Disable();
+			if (enabled) inputs.Enable();
+			else inputs.Disable();
 		}
 	}
 }

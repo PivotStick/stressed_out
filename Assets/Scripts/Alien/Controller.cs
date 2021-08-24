@@ -7,8 +7,7 @@ namespace Alien
     [RequireComponent(typeof (Rigidbody2D))]
     public class Controller : Player.Controller
     {
-        [SerializeField] private PolygonCollider2D attack;
-
+        private PolygonCollider2D attack;
         private Inputs inputs;
         private float stepTimer = 0f;
 
@@ -21,13 +20,14 @@ namespace Alien
         private float warningTimeout = 4;
         private float warningTimer;
 
-        private void Start()
+        protected override void Awake()
         {
+            base.Awake();
+            attack = GetComponentInChildren<PolygonCollider2D>();
+
             moveSpeed = 0.75f;
             minSpeed = 0.75f;
             maxSpeed = 4f;
-
-            if (!photonView.IsMine) return;
 
             inputs = new Inputs();
             inputs.Movements.Speed.performed += OnSpeedChange;
@@ -45,8 +45,6 @@ namespace Alien
 
         private void Update()
         {
-            if (!photonView.IsMine) return;
-
             if (rbd.velocity.magnitude > 0)
                 Step();
             
@@ -106,7 +104,12 @@ namespace Alien
 
             stepTimer = 0;
             var percent = moveSpeed / maxSpeed;
-            Audio.Manager.instance.PlaySoundAt(transform.position, Audio.ID.LoudStep, percent,
+            Audio.Manager.instance.PlaySoundAt(
+                transform.position,
+                Audio.ID.LoudStep,
+                Player.Manager.CurrentFloor,
+
+                percent,
                 speedMultiplier: percent * 3,
                 particleMultiplier: percent * 3f
             );
@@ -130,9 +133,12 @@ namespace Alien
             );
         }
 
-        private void OnDisable()
+        public override void SetEnabled(bool enabled)
         {
-            inputs.Disable();
+            base.SetEnabled(enabled);
+
+            if (enabled) inputs.Enable();
+            else inputs.Disable();
         }
 
         private void MakeMouthSound(Audio.ID sound, float volume = 1, float speedMultiplier = 1, float particleMultiplier = 1)
@@ -140,6 +146,8 @@ namespace Alien
             Audio.Manager.instance.PlaySoundAt(
                 transform.position,
                 sound,
+                Player.Manager.CurrentFloor,
+
                 volume,
                 photonView.ViewID,
                 particleMultiplier,

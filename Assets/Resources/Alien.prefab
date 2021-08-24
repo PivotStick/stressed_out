@@ -82,12 +82,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6742782808423067420}
   - component: {fileID: 6848338845027751490}
-  - component: {fileID: 4117363686094134263}
   - component: {fileID: 1754719110317471654}
   - component: {fileID: 3579037839788642372}
   - component: {fileID: 7701081353439937392}
   - component: {fileID: -5733786415009641916}
   - component: {fileID: -2690633216599207830}
+  - component: {fileID: 858394213596149171}
   m_Layer: 3
   m_Name: Alien
   m_TagString: Player
@@ -161,22 +161,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4117363686094134263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5524724012725343037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c95f9fdadc4c74b4c83e2447e8122b53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 0.75
-  minSpeed: 0.75
-  maxSpeed: 4
-  attack: {fileID: 7920299035849177055}
 --- !u!50 &1754719110317471654
 Rigidbody2D:
   serializedVersion: 4
@@ -236,7 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf5aae939a7775d41b392d48cef9dc7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlitMat: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
 --- !u!114 &-5733786415009641916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,3 +259,16 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &858394213596149171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5524724012725343037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced35e215bd4543d4835ba016fa1e885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unlitMat: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}

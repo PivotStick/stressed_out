@@ -14,9 +14,27 @@ namespace Audio
         [SerializeField] private AudioSource bgSource;
         [SerializeField] private Scriptable[] sounds;
 
+        public Sound PlayLocalAt(
+            Vector2 position,
+            ID soundID,
+            int floorLevel,
+            float speedMultiplier = 1,
+            float particleMultiplier = 1
+        ) {
+            var sound = Instantiate(soundPrefab, position, Quaternion.identity);
+            sound.settings = Scriptable.GetById(soundID);
+            sound.floorLevel = floorLevel;
+            sound.speedMultiplier = speedMultiplier;
+            sound.particleMultiplier = particleMultiplier;
+            sound.Initialize(sound.settings.RandomIndex);
+
+            return sound;
+        }
+
         public void PlaySoundAt(
             Vector2 position,
             ID soundID,
+            int floorLevel,
             float volume = 1f,
             int viewId = -1,
             float particleMultiplier = 1,
@@ -24,7 +42,15 @@ namespace Audio
         )
         {
             var soundIndex = Random.Range(0, Scriptable.GetById(soundID).clips.Length);
-            var datas = new object[] { soundID, volume, viewId, particleMultiplier, speedMultiplier, soundIndex };
+            var datas = new object[] {
+                soundID,
+                volume,
+                viewId,
+                particleMultiplier,
+                speedMultiplier,
+                soundIndex,
+                floorLevel,
+            };
 
             PhotonNetwork.Instantiate(
                 soundPrefab.name,
@@ -41,11 +67,14 @@ namespace Audio
 
         private void Start()
         {
-            if (instance != this)
+            if (instance == null)
             {
                 instance = this;
-                DontDestroyOnLoad(this);
+                DontDestroyOnLoad(gameObject);
                 DontDestroyOnLoad(bgSource.gameObject);
+            } else {
+                Destroy(gameObject);
+                Destroy(bgSource.gameObject);
             }
 
             Scriptable.sounds = sounds;

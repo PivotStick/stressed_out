@@ -14,7 +14,9 @@ public class TransitionManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(gameObject);
+        } else {
+            Destroy(gameObject);
         }
     }
 
@@ -62,5 +64,7 @@ public class TransitionManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene(0);
         FadeOut();
+        CanvasManager.instance.gameObject.SetActive(true);
+        Network.Manager.instance.InstantiateSpeaker();
     }
 }
