@@ -138,10 +138,10 @@ namespace Network
 			int currentFloor = (int)(changedProps["currentFloor"] ?? -1);
 
 			if (isDead == true)
-				Event.TriggerEvent(Event.ID.PLAYER_DIED);
+				Event.Trigger(Event.ID.PLAYER_DIED);
 
 			if (currentFloor != -1)
-				Event.TriggerEvent(Event.ID.PLAYER_CHANGED_FLOOR, new object[] { targetPlayer.UserId });
+				Event.Trigger(Event.ID.PLAYER_CHANGED_FLOOR, new object[] { targetPlayer.UserId });
 		}
 
 		public override void OnRoomListUpdate(List<RoomInfo> roomList)

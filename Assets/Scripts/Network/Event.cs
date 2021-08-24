@@ -16,6 +16,8 @@ namespace Network
 			PLAYER_DIED,
 			PLAYER_CHANGED_FLOOR,
 			QUEST_REPAIRED,
+			CORPSE_DRAG,
+			CORPSE_DETACH,
 		}
 
 		public static Event instance = null;
@@ -40,7 +42,7 @@ namespace Network
 			}
 		}
 
-		public static void TriggerEvent(ID eventId, object[] datas = null, ReceiverGroup receivers = ReceiverGroup.All)
+		public static void Trigger(ID eventId, object[] datas = null, ReceiverGroup receivers = ReceiverGroup.All)
 		{
 			var options = new RaiseEventOptions { Receivers = receivers };
 			PhotonNetwork.RaiseEvent((byte)eventId, datas, options, SendOptions.SendReliable);
@@ -48,14 +50,34 @@ namespace Network
 
 		public void OnEvent(EventData data)
 		{
+			var customData = (object[])data.CustomData;
 			switch ((ID)data.Code)
 			{
 				case ID.LAUNCH_GAME: LaunchGame(); break;
-				case ID.DAMAGE_PLAYER: DamagePlayer((object[])data.CustomData); break;
+				case ID.DAMAGE_PLAYER: DamagePlayer(customData); break;
 				case ID.PLAYER_DIED: PlayerDied(); break;
-				case ID.PLAYER_CHANGED_FLOOR: FloorChanged(((object[])data.CustomData)[0]); break;
-				case ID.QUEST_REPAIRED: QuestRepaired((string)((object[])data.CustomData)[0]); break;
+				case ID.PLAYER_CHANGED_FLOOR: FloorChanged(customData[0]); break;
+				case ID.QUEST_REPAIRED: QuestRepaired((string)customData[0]); break;
+				case ID.CORPSE_DETACH: DetachCorpse((int)customData[0]); break;
+				case ID.CORPSE_DRAG: DragCorpse(customData); break;
 			}
+		}
+
+		private void DragCorpse(object[] data)
+		{
+			var corpseId = (int)data[0];
+			var alienId = (int)data[1];
+
+			var corpse = Manager.instance.GetView(corpseId).GetComponent<Human.Corpse>();
+			var alien = Manager.instance.GetView(alienId).GetComponent<Alien.Main>();
+
+			corpse.AttachTo(alien);
+		}
+
+		private void DetachCorpse(int viewId)
+		{
+			var corpse = Manager.instance.GetView(viewId).GetComponent<Human.Corpse>();
+			corpse.Detach();
 		}
 
 		private void QuestRepaired(string viewId)

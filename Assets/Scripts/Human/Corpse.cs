@@ -4,13 +4,13 @@ using Photon.Pun;
 
 namespace Human
 {
-    public class Corpse : MonoBehaviourPun, IPunOwnershipCallbacks
+    public class Corpse : MonoBehaviourPun
     {
         public bool infectionStarted = false;
 
         private SpringJoint2D joint;
         private Alien.Inputs inputs;
-        private Alien.Local alien;
+        private Alien.Main alien;
         private Rigidbody2D rbd;
         private Blood blood;
         private Animator animator;
@@ -41,29 +41,57 @@ namespace Human
             }
         }
 
-        void OnGrab(InputAction.CallbackContext _) => OnGrab();
-        void OnGrab()
+        public void AttachTo(Alien.Main alien)
         {
-            photonView.RequestOwnership();
-            alien = Physics2D.OverlapBox(gameObject.transform.position, new Vector2(1.5f, 1.5f), 0).GetComponent<Alien.Local>();
-            if (!alien) return;
-
+            Debug.Log($"AttachTo {alien.name}");
             alien.isGrabbing = true;
             joint.connectedBody = alien.GetComponent<Rigidbody2D>();
             joint.enabled = true;
         }
 
-        void OnRelease(InputAction.CallbackContext _) => OnRelease();
-        void OnRelease()
+        public void Detach()
         {
+            Debug.Log("Detach");
             if (alien)
             {
+                Debug.Log($"From {alien.name}");
                 alien.isGrabbing = false;
                 alien = null;
             }
 
             joint.connectedBody = null;
             joint.enabled = false;
+        }
+
+        void OnGrab(InputAction.CallbackContext _)
+        {
+            Debug.Log("OnGrab");
+            alien = Physics2D.OverlapBox(gameObject.transform.position, new Vector2(1.5f, 1.5f), 0).GetComponent<Alien.Main>();
+            if (!alien && alien.photonView.IsMine) return;
+
+            AttachTo(alien);
+            Network.Event.Trigger(
+                Network.Event.ID.CORPSE_DETACH,
+                new object[] {
+                    photonView.ViewID,
+                    alien.photonView.ViewID,
+                },
+                receivers: Photon.Realtime.ReceiverGroup.Others
+            );
+        }
+
+        void OnRelease(InputAction.CallbackContext _) => Release();
+        public void Release()
+        {
+            Debug.Log("Release");
+            Detach();
+            Network.Event.Trigger(
+                Network.Event.ID.CORPSE_DETACH,
+                new object[] {
+                    photonView.ViewID
+                },
+                receivers: Photon.Realtime.ReceiverGroup.Others
+            );
         }
 
         void OnDestroy()
@@ -75,7 +103,7 @@ namespace Human
         void RemoveListeners()
         {
             blood.IsDragging = false;
-            OnRelease();
+            Release();
             inputs.Movements.Grab.performed -= OnGrab;
             inputs.Movements.Grab.canceled -= OnRelease;       
         }
@@ -109,19 +137,6 @@ namespace Human
             {
                 blood.IsDragging = false;
             }
-        }
-
-        public void OnOwnershipRequest(PhotonView targetView, Photon.Realtime.Player requestingPlayer)
-        {
-            targetView.TransferOwnership(requestingPlayer);
-        }
-
-        public void OnOwnershipTransfered(PhotonView targetView, Photon.Realtime.Player previousOwner)
-        {
-        }
-
-        public void OnOwnershipTransferFailed(PhotonView targetView, Photon.Realtime.Player senderOfFailedRequest)
-        {
         }
     }
 }
