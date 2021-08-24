@@ -50,19 +50,15 @@ namespace Network
 
 		public void OnEvent(EventData data)
 		{
-			object[] customData = new object[] {};
-			if (data.CustomData != null)
-				customData = (object[])data.CustomData;
-
 			switch ((ID)data.Code)
 			{
 				case ID.LAUNCH_GAME: LaunchGame(); break;
-				case ID.DAMAGE_PLAYER: DamagePlayer(customData); break;
+				case ID.DAMAGE_PLAYER: DamagePlayer((object[])data.CustomData); break;
 				case ID.PLAYER_DIED: PlayerDied(); break;
-				case ID.PLAYER_CHANGED_FLOOR: FloorChanged(customData[0]); break;
-				case ID.QUEST_REPAIRED: QuestRepaired((string)customData[0]); break;
-				case ID.CORPSE_DETACH: DetachCorpse((int)customData[0]); break;
-				case ID.CORPSE_DRAG: DragCorpse(customData); break;
+				case ID.PLAYER_CHANGED_FLOOR: FloorChanged(((object[])data.CustomData)[0]); break;
+				case ID.QUEST_REPAIRED: QuestRepaired((string)((object[])data.CustomData)[0]); break;
+				case ID.CORPSE_DETACH: DetachCorpse((int)((object[])data.CustomData)[0]); break;
+				case ID.CORPSE_DRAG: DragCorpse((object[])data.CustomData); break;
 			}
 		}
 
