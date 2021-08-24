@@ -5,7 +5,11 @@ namespace Player
 {
     public class Main : MonoBehaviourPun
     {
-        public static GameObject local;
+        public static GameObject local
+        {
+            get => Cam.Follower.target;
+            set => Cam.Follower.target = value;
+        }
         public static Controller controller;
 
         void Start()
