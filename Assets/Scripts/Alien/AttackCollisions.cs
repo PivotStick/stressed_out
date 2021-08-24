@@ -18,7 +18,7 @@ namespace Alien
             if (!col.GetComponent<Human.Main>()) return;
             var damage = Random.Range(10f, 30f);
 
-            Network.Event.TriggerEvent(Network.Event.ID.DAMAGE_PLAYER, new object[] {
+            Network.Event.Trigger(Network.Event.ID.DAMAGE_PLAYER, new object[] {
                 col.GetComponent<PhotonView>().ViewID,
                 damage,
             });

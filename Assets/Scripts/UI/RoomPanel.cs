@@ -47,7 +47,7 @@ public class RoomPanel : MonoBehaviour
         // } 
 
         Player.Manager.SetProperty("Role", Player.RoleID.Alien);
-        Network.Event.TriggerEvent(Network.Event.ID.LAUNCH_GAME);
+        Network.Event.Trigger(Network.Event.ID.LAUNCH_GAME);
     }
 
     private void DisplayButton()

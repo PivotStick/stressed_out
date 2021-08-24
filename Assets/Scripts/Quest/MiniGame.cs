@@ -43,7 +43,7 @@ namespace Quest
 
         public void Finish()
         {
-            Network.Event.TriggerEvent(Network.Event.ID.QUEST_REPAIRED, new object[] {
+            Network.Event.Trigger(Network.Event.ID.QUEST_REPAIRED, new object[] {
                 id
             });
         }
