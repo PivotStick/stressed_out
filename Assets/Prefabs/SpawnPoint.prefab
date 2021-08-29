@@ -43,4 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8b3c78ad76dad84c9abf36c398134cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRadius: 3.1
+  spawnRadius: 3

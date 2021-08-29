@@ -271,4 +271,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced35e215bd4543d4835ba016fa1e885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGrabbing: 0
   unlitMat: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}

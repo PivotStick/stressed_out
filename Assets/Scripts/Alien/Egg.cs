@@ -1,11 +1,12 @@
 using UnityEngine;
+using Photon.Pun;
 
 namespace Alien
 {
-    public class Egg : MonoBehaviour
+    public class Egg : MonoBehaviourPun, IPunInstantiateMagicCallback
     {
         public Facehugger facehugger;
-        public Spawner spawner;
+        public SpawnPoint spawnPoint;
 
         private Human.Corpse corpse;
 
@@ -25,11 +26,17 @@ namespace Alien
 
         public void Infect(Human.Infected infected)
         {
-            spawner.infectedHumans.Add(infected);
-            spawner.eggs.Remove(this);
+            spawnPoint.infectedHumans.Add(infected);
+            spawnPoint.eggs.Remove(this);
 
             Destroy(facehugger.gameObject);
             Destroy(this);
+        }
+
+        void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
+        {
+            spawnPoint = SpawnPoint.instance;
+            spawnPoint.eggs.Add(this);
         }
     }
 }

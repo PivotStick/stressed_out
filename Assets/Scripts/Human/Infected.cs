@@ -26,7 +26,7 @@ namespace Human
         public void SpawnAlien()
         {
             var babyAlien = GetComponentInChildren<BabyAlien>();
-            Cam.Follower.target = GameObject.Instantiate(
+            Cam.Follower.target = Instantiate(
                 prefab,
                 babyAlien.transform.position,
                 Quaternion.identity

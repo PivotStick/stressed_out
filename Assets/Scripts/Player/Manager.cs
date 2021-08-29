@@ -4,6 +4,12 @@ using Photon.Pun;
 
 namespace Player
 {
+	public enum RoleID
+	{
+		Alien,
+		Human,
+	}
+
 	public static class Manager
 	{
 		public static Photon.Realtime.Player[] players = new Photon.Realtime.Player[] { };
